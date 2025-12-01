@@ -49,6 +49,7 @@ export function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -76,7 +77,9 @@ export function Projects() {
             >
               <span className="flex items-center gap-2">
                 {category === "all" && <Filter className="w-4 h-4" />}
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+                {typeof category === "string"
+                  ? category.charAt(0).toUpperCase() + category.slice(1)
+                  : ""}
               </span>
             </motion.button>
           ))}
@@ -88,7 +91,7 @@ export function Projects() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {displayProjects.slice(0, 9).map((project, index) => (
                 <motion.div
                   key={project.id}
