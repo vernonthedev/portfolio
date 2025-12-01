@@ -1,134 +1,73 @@
-# vernonthedev Portfolio
+# Portfolio
 
-A modern, high-end developer portfolio website showcasing skills, projects, blog posts, and professional branding.
+A modern, high-performance portfolio website built with Next.js, showcasing projects, skills, and professional work.
 
-## Features
+## 🚀 Features
 
-- **Modern Design**: Sleek, minimal, futuristic aesthetic with dark mode first
-- **Performance**: Fast, optimized, and fully responsive
-- **Animations**: Smooth animations and micro-interactions using Framer Motion
-- **Responsive**: Works beautifully on all devices
-- **Accessible**: Built with accessibility in mind
-- **SEO Optimized**: Open Graph tags, structured data, sitemap, and robots.txt
-- **Theme Toggle**: Dark/light mode with smooth transitions
-- **GitHub Integration**: Auto-fetches latest repositories
-- **Blog Section**: Ready for markdown content
-- **Contact Form**: Backend API for handling contact submissions
+- Modern, responsive design with dark/light mode
+- Smooth animations powered by Framer Motion
+- GitHub integration for live project showcase
+- SEO optimized with structured data
+- Contact form with validation
+- Blog section ready for content
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Forms**: React Hook Form + Zod
-- **Icons**: Lucide React
-- **QR Code**: qrcode.react
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion**
+- **React Hook Form** + **Zod**
 
-## Getting Started
+## 📦 Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- npm
+- npm or yarn
 
 ### Installation
 
-1. Clone the repository:
-
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd portfolio
-```
 
-Install dependencies:
-
-```bash
+# Install dependencies
 npm install
-```
 
-Run the development server:
-
-```bash
+# Run development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit `http://localhost:3000` to see the site.
 
-## Project Structure
+## ⚙️ Configuration
 
-```bash
-vernonthedev-portfolio/
-├── app/
-│   ├── api/              # API routes
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   └── sitemap.ts         # Sitemap generation
-├── components/
-│   ├── sections/          # Page sections
-│   ├── Navigation.tsx     # Navigation component
-│   └── ThemeProvider.tsx # Theme context
-├── lib/
-│   ├── github.ts          # GitHub API integration
-│   └── utils.ts           # Utility functions
-├── types/
-│   └── index.ts           # TypeScript types
-└── public/                # Static assets
-```
-
-## Configuration
-
-### GitHub Integration
-
-Update the GitHub username in `lib/github.ts`:
+Update your GitHub username in `lib/github.ts`:
 
 ```typescript
 const GITHUB_USERNAME = "vernonthedev";
 ```
 
-### Contact Form
+Configure website details in `app/api/website-details/route.ts` and customize content in respective section components.
 
-The contact form API route is at `app/api/contact/route.ts`. You can integrate with email services like:
-
-- SendGrid
-- Resend
-- Nodemailer
-
-### Website Details
-
-Update website details in `app/api/website-details/route.ts`:
-
-- Social media links
-- Email address
-- Bio and tagline
-
-## Customization
-
-### Colors
-
-Edit `tailwind.config.ts` to customize the color palette:
-
-- Primary colors: Blue gradient
-- Accent colors: Purple gradient
-
-### Content
-
-- **Skills**: Edit `components/sections/Skills.tsx`
-- **Blog Posts**: Edit `components/sections/Blog.tsx`
-- **About**: Edit `components/sections/About.tsx`
-
-## Build
+## 🏗️ Build
 
 ```bash
 npm run build
 npm start
 ```
 
-## Author
+## 📝 License
 
-> **vernonthedev**
+This project is private and proprietary.
+
+## 👤 Author
+
+### vernonthedev
 
 - GitHub: [@vernonthedev](https://github.com/vernonthedev)
 - YouTube: [@vernonthedev](https://youtube.com/@vernonthedev)
-- Twitter: [@vernonthedev](https://twitter.com/vernonthedev)
+- Instagram: [@vernonthedev](https://instagram.com/@vernonthedev)
+- X: [@vernonthedev](https://x.com/vernonthedev)
