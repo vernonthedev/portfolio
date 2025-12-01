@@ -11,20 +11,20 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
-  
-  const savedTheme = localStorage.getItem("theme") as Theme | null;
-  if (savedTheme) {
-    return savedTheme;
-  }
-  
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return prefersDark ? "dark" : "light";
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  // Always start from dark on both server and client for consistent SSR markup.
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // Hydrate theme on client based on localStorage / system preference.
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("theme") as Theme | null;
+      const initial: Theme = saved ?? "dark";
+      setTheme(initial);
+    } catch {
+      // ignore
+    }
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -33,7 +33,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      // ignore
+    }
   }, [theme]);
 
   const toggleTheme = () => {

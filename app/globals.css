@@ -2,10 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Youth';
+  src: url('/fonts/67fd2c8b07b5bd55635639e2_AllCaps - Youth Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Youth';
+  src: url('/fonts/67fd2c82702fbe2343e09004_AllCaps - Youth Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/fonts/68401ba9f80f36704e34555e_PPNeueMontreal-Regular.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/fonts/68401bc6c509431bc14229e0_PPNeueMontreal-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --bg: #fbf9ef;
+  --base: #171412;
+  --orange: #ff7722;
+  --purple: #3d2fa9;
+  --border-radius: 0.75em;
+  --grey: #8e827c;
+  --white: #ffffff;
+  --padding: 2em;
+  --border-radius-min: 0.37em;
+  --bg-d: #f2f0e7;
+  --red: #ff3c34;
+  --gradient-base: #eee1d7;
+  --24: 1.25em;
+  --bg-darker: #ebe9df;
+  --yellow: #ffc765;
+  --border-subtle: rgba(23, 20, 18, 0.08);
+  --border-strong: rgba(23, 20, 18, 0.18);
+
+  --size-unit: 16;
+  --size-container-ideal: 1440;
+  --size-container-min: 768px;
+  --size-container-max: 1920px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  --grid-cols: 24;
+}
+
+.dark {
+  --bg: #050409;
+  --base: #f6f1e7;
+  --orange: #ff8b3d;
+  --purple: #a890ff;
+  --grey: #a89bb7;
+  --white: #050409;
+  --bg-d: #0f0b18;
+  --bg-darker: #181224;
+  --gradient-base: #1b1425;
+  --border-subtle: rgba(245, 241, 231, 0.08);
+  --border-strong: rgba(245, 241, 231, 0.18);
 }
 
 * {
@@ -16,21 +84,94 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: var(--size-font);
+  }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: var(--bg);
+  color: var(--base);
+  font-family: 'PP Neue Montreal', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  min-height: 100%;
+  margin: 0;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+h1 {
+  letter-spacing: -0.05em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Youth', Arial, sans-serif;
+  font-size: 7em;
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+h2 {
+  letter-spacing: -0.05em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Youth', Arial, sans-serif;
+  font-size: 7em;
+  line-height: 0.8;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Youth', Arial, sans-serif;
+  font-size: 3em;
+  line-height: 0.8;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 1em;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+blockquote {
+  text-align: left;
+  border-left: 0 solid #000;
+  margin-bottom: 0;
+  padding: 0;
+  font-size: 1.5em;
+  line-height: 1.2;
 }
 
 @layer utilities {
@@ -50,5 +191,116 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .text-youth {
+    letter-spacing: -0.03em;
+    font-family: 'Youth', Arial, sans-serif;
+  }
+  
+  .text-large {
+    font-size: 1.75em;
+    line-height: 1.14;
+  }
+  
+  .text-big {
+    letter-spacing: -0.05em;
+    font-size: 7.4em;
+    line-height: 0.8;
+  }
+  
+  .is-orange {
+    color: var(--orange);
+  }
+  
+  .u-section {
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+  }
+
+  .container {
+    flex-flow: column;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 63em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+  }
+
+  .u-rounded {
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .card {
+    border-radius: var(--border-radius);
+    background-color: var(--bg-d);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .card-strong {
+    border-radius: var(--border-radius);
+    background-color: var(--bg-darker);
+    border: 1px solid var(--border-strong);
+  }
+
+  .pill {
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .text-muted {
+    color: var(--grey);
+  }
+
+  .chip {
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background-color: rgba(255, 255, 255, 0.02);
+    font-size: 0.8em;
+    padding: 0.35em 0.9em;
+  }
+
+  .text-main {
+    color: var(--base);
+  }
+
+  .bg-surface {
+    background-color: var(--bg-d);
+  }
+
+  .bg-surface-strong {
+    background-color: var(--bg-darker);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  h1, h2 {
+    font-size: 3.6em;
+  }
+  
+  .u-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  .container {
+    max-width: 480px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .text-large {
+    font-size: 20px;
+  }
+  
+  .text-big {
+    font-size: 15vw;
   }
 }

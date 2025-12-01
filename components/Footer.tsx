@@ -7,59 +7,108 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { name: "GitHub", icon: Github, href: "https://github.com/vernonthedev" },
-    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@vernonthedev" },
-    { name: "Twitter", icon: Twitter, href: "https://twitter.com/vernonthedev" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/vernonthedev" },
+    { name: "GitHub", icon: Github, href: "https://github.com/vernonthedev", label: "GitHub" },
+    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@vernonthedev", label: "YouTube" },
+    { name: "Twitter", icon: Twitter, href: "https://twitter.com/vernonthedev", label: "X" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/vernonthedev", label: "LinkedIn" },
   ];
 
   return (
-    <footer className="border-t border-white/10 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-16"
+      style={{ backgroundColor: "var(--base)", color: "var(--bg)" }}
+    >
+      <div className="absolute inset-0 opacity-10">
+        {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            key={i}
+            className="absolute rounded-full blur-2xl"
+            style={{
+              width: Math.random() * 200 + 100,
+              height: Math.random() * 200 + 100,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: "linear-gradient(135deg, var(--orange), var(--purple))",
+            }}
+            animate={{
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50],
+              scale: [1, 1.2, 0.8, 1],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col items-center justify-center gap-12">
+          <motion.ul
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center md:text-left"
+            transition={{ duration: 0.8 }}
+            className="flex items-center gap-4 list-none p-0 flex-wrap justify-center"
           >
-            <p className="text-gray-400 text-sm">
-              © {currentYear} vernonthedev. All rights reserved.
-            </p>
-            <p className="text-gray-500 text-xs mt-1 flex items-center justify-center md:justify-start gap-1">
-              Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> using Next.js
-            </p>
-          </motion.div>
+            {socialLinks.map((social, index) => {
+              const Icon = social.icon;
+              return (
+                <li key={social.name}>
+                  <motion.a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border backdrop-blur-sm font-youth font-bold text-sm uppercase no-underline transition-all"
+                    style={{
+                      borderColor: "rgba(255, 255, 255, 0.1)",
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      color: "var(--bg)",
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      y: -4,
+                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {social.label}
+                  </motion.a>
+                </li>
+              );
+            })}
+          </motion.ul>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-4"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-center space-y-3"
           >
-            {socialLinks.map((social) => {
-              const Icon = social.icon;
-              return (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 glass rounded-lg hover:bg-white/10 transition-colors"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={social.name}
-                >
-                  <Icon className="w-5 h-5 text-gray-400 hover:text-primary-400 transition-colors" />
-                </motion.a>
-              );
-            })}
+            <p className="text-sm opacity-80">
+              © {currentYear} vernonthedev. All rights reserved.
+            </p>
+            <p className="text-xs opacity-60 flex items-center justify-center gap-1.5">
+              Made with
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              >
+                <Heart className="w-3.5 h-3.5" style={{ color: "var(--red)" }} fill="var(--red)" />
+              </motion.span>
+              using Next.js
+            </p>
           </motion.div>
         </div>
       </div>
     </footer>
   );
 }
-

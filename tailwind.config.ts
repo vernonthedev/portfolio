@@ -10,6 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        bg: "#fbf9ef",
+        base: "#171412",
+        orange: "#ff7722",
+        purple: "#3d2fa9",
+        grey: "#8e827c",
+        red: "#ff3c34",
+        yellow: "#ffc765",
+        "bg-d": "#f2f0e7",
+        "bg-darker": "#ebe9df",
+        "gradient-base": "#eee1d7",
         primary: {
           50: "#f0f9ff",
           100: "#e0f2fe",
@@ -37,9 +47,18 @@ const config: Config = {
           950: "#3b0764",
         },
       },
+      fontFamily: {
+        youth: ['Youth', 'Arial', 'sans-serif'],
+        montreal: ['PP Neue Montreal', 'Arial', 'sans-serif'],
+        sans: ['PP Neue Montreal', 'Arial', 'sans-serif'],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      borderRadius: {
+        brand: '0.75em',
+        'brand-min': '0.37em',
       },
       animation: {
         "float": "float 6s ease-in-out infinite",

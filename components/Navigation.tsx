@@ -1,125 +1,128 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Home, Briefcase, User, Mail, Moon, Sun } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-import { cn } from "@/lib/utils";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Blog", href: "#blog" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "#home", icon: Home },
+  { name: "Works", href: "#projects", icon: Briefcase },
+  { name: "About", href: "#about", icon: User },
+  { name: "Contact", href: "#contact", icon: Mail },
 ];
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "glass-dark py-3 shadow-lg"
-          : "bg-transparent py-5"
-      )}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none p-6">
+        <div className="flex items-center justify-between gap-4">
           <motion.a
             href="#home"
-            className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent"
+            className="pointer-events-auto rounded-full border-2 p-1"
+            style={{ borderColor: "var(--orange)", backgroundColor: "var(--purple)" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            VTD
+            <div
+              className="aspect-square rounded-full flex items-center justify-center w-14 h-14"
+              style={{ backgroundColor: "var(--purple)" }}
+            >
+              <span className="text-2xl font-youth font-bold" style={{ color: "var(--bg)" }}>
+                VD
+              </span>
+            </div>
           </motion.a>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 hover:text-primary-400 transition-colors relative group"
-                whileHover={{ y: -2 }}
+          <motion.button
+            type="button"
+            onClick={toggleTheme}
+            className="pointer-events-auto pill px-3 py-2 flex items-center gap-2 text-xs font-youth uppercase tracking-tight"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-4 h-4" style={{ color: "var(--orange)" }} />
+            ) : (
+              <Moon className="w-4 h-4" style={{ color: "var(--purple)" }} />
+            )}
+            <span>Theme</span>
+          </motion.button>
+        </div>
+      </header>
+
+      <nav className="hidden md:flex fixed left-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-2 pointer-events-auto">
+        {navItems.map((item) => {
+          const isActive = activeSection === item.name.toLowerCase();
+          return (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              className="group relative aspect-square w-16 rounded-xl backdrop-blur-3xl flex flex-col items-center justify-center transition-all"
+              style={{
+                backgroundColor: isActive ? "var(--purple)" : "rgba(0,0,0,0.04)",
+                color: isActive ? "var(--bg)" : "var(--base)",
+              }}
+              onClick={() => setActiveSection(item.name.toLowerCase())}
+              whileHover={{ scale: 1.07, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+            >
+              <item.icon
+                className="w-6 h-6"
+                style={{ color: isActive ? "var(--bg)" : "var(--grey)" }}
+              />
+
+              <div
+                className="absolute left-full ml-2 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap backdrop-blur-3xl px-3 py-2 rounded-md"
+                style={{ backgroundColor: "var(--bg-d)", color: "var(--base)" }}
+              >
+                <div className="text-xs font-youth font-bold uppercase">{item.name}</div>
+              </div>
+
+              {isActive && (
+                <span
+                  className="absolute -right-1 w-1 h-6 rounded-full"
+                  style={{ backgroundColor: "var(--orange)" }}
+                />
+              )}
+            </motion.a>
+          );
+        })}
+      </nav>
+
+      <nav
+        className="md:hidden fixed bottom-2 left-1/2 -translate-x-1/2 z-50 flex items-center gap-0 pointer-events-auto backdrop-blur-3xl rounded-xl px-3"
+        style={{ backgroundColor: "var(--base)" }}
+      >
+        {navItems.map((item) => {
+          const isActive = activeSection === item.name.toLowerCase();
+          return (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              className="flex flex-col items-center justify-center py-3 px-4 gap-1"
+              onClick={() => setActiveSection(item.name.toLowerCase())}
+              whileTap={{ scale: 0.95 }}
+            >
+              <item.icon
+                className="w-5 h-5"
+                style={{ color: isActive ? "var(--orange)" : "var(--grey)" }}
+              />
+              <div
+                className="text-[10px] font-youth font-bold uppercase"
+                style={{ color: "var(--bg)" }}
               >
                 {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-400 group-hover:w-full transition-all duration-300" />
-              </motion.a>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4">
-            <motion.button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg glass hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-yellow-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-gray-700" />
-              )}
-            </motion.button>
-
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg glass hover:bg-white/10 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <AnimatePresence mode="wait">
-        {isMobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-dark border-t border-white/10"
-          >
-            <div className="container mx-auto px-4 py-4 space-y-4">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="block text-sm font-medium text-gray-300 hover:text-primary-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  whileHover={{ x: 5 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+              </div>
+            </motion.a>
+          );
+        })}
+      </nav>
+    </>
   );
 }
+
 

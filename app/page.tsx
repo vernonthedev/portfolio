@@ -23,7 +23,6 @@ export default function Home() {
       <Blog />
       <About />
       <Contact />
-      <Footer />
       <ScrollToTop />
     </main>
   );
