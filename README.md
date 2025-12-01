@@ -4,16 +4,16 @@ A modern, high-end developer portfolio website showcasing skills, projects, blog
 
 ## Features
 
-- 🎨 **Modern Design**: Sleek, minimal, futuristic aesthetic with dark mode first
-- ⚡ **Performance**: Fast, optimized, and fully responsive
-- 🎭 **Animations**: Smooth animations and micro-interactions using Framer Motion
-- 📱 **Responsive**: Works beautifully on all devices
-- ♿ **Accessible**: Built with accessibility in mind
-- 🔍 **SEO Optimized**: Open Graph tags, structured data, sitemap, and robots.txt
-- 🌓 **Theme Toggle**: Dark/light mode with smooth transitions
-- 📊 **GitHub Integration**: Auto-fetches latest repositories
-- 📝 **Blog Section**: Ready for markdown content
-- 📧 **Contact Form**: Backend API for handling contact submissions
+- **Modern Design**: Sleek, minimal, futuristic aesthetic with dark mode first
+- **Performance**: Fast, optimized, and fully responsive
+- **Animations**: Smooth animations and micro-interactions using Framer Motion
+- **Responsive**: Works beautifully on all devices
+- **Accessible**: Built with accessibility in mind
+- **SEO Optimized**: Open Graph tags, structured data, sitemap, and robots.txt
+- **Theme Toggle**: Dark/light mode with smooth transitions
+- **GitHub Integration**: Auto-fetches latest repositories
+- **Blog Section**: Ready for markdown content
+- **Contact Form**: Backend API for handling contact submissions
 
 ## Tech Stack
 
@@ -29,32 +29,35 @@ A modern, high-end developer portfolio website showcasing skills, projects, blog
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
+- Node.js 18+
+- npm
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
-cd vernonthedev-portfolio
+cd portfolio
 ```
 
-2. Install dependencies:
+Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Run the development server:
+Run the development server:
+
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
-```
+```bash
 vernonthedev-portfolio/
 ├── app/
 │   ├── api/              # API routes
@@ -79,6 +82,7 @@ vernonthedev-portfolio/
 ### GitHub Integration
 
 Update the GitHub username in `lib/github.ts`:
+
 ```typescript
 const GITHUB_USERNAME = "vernonthedev";
 ```
@@ -86,6 +90,7 @@ const GITHUB_USERNAME = "vernonthedev";
 ### Contact Form
 
 The contact form API route is at `app/api/contact/route.ts`. You can integrate with email services like:
+
 - SendGrid
 - Resend
 - Nodemailer
@@ -93,6 +98,7 @@ The contact form API route is at `app/api/contact/route.ts`. You can integrate w
 ### Website Details
 
 Update website details in `app/api/website-details/route.ts`:
+
 - Social media links
 - Email address
 - Bio and tagline
@@ -102,6 +108,7 @@ Update website details in `app/api/website-details/route.ts`:
 ### Colors
 
 Edit `tailwind.config.ts` to customize the color palette:
+
 - Primary colors: Blue gradient
 - Accent colors: Purple gradient
 
@@ -111,22 +118,6 @@ Edit `tailwind.config.ts` to customize the color palette:
 - **Blog Posts**: Edit `components/sections/Blog.tsx`
 - **About**: Edit `components/sections/About.tsx`
 
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import your repository on [Vercel](https://vercel.com)
-3. Deploy!
-
-### Other Platforms
-
-The app can be deployed to any platform that supports Next.js:
-- Netlify
-- AWS Amplify
-- Railway
-- DigitalOcean App Platform
-
 ## Build
 
 ```bash
@@ -134,13 +125,9 @@ npm run build
 npm start
 ```
 
-## License
-
-MIT
-
 ## Author
 
-**vernonthedev**
+> **vernonthedev**
 
 - GitHub: [@vernonthedev](https://github.com/vernonthedev)
 - YouTube: [@vernonthedev](https://youtube.com/@vernonthedev)
