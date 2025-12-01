@@ -1,0 +1,146 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sessions  Session[]
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String
+  level     Int      @default(0)
+  category  String
+  icon      String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("skills")
+}
+
+model Project {
+  id             String    @id @default(cuid())
+  name           String
+  description    String    @db.Text
+  htmlUrl        String?   @map("html_url")
+  homepage       String?
+  language       String?
+  topics         String[]
+  stargazersCount Int      @default(0) @map("stargazers_count")
+  forksCount     Int       @default(0) @map("forks_count")
+  featured       Boolean   @default(false)
+  thumbnail      String?
+  category       String?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  excerpt   String   @db.Text
+  content   String   @db.Text
+  date      DateTime
+  category  String
+  featured  Boolean  @default(false)
+  image     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
+}
+
+model About {
+  id        String   @id @default("default")
+  bio       String   @db.Text
+  services  String[]
+  stats     Json
+  image     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("about")
+}
+
+model Hero {
+  id        String   @id @default("default")
+  title     String
+  subtitle  String   @db.Text
+  tagline   String?
+  techStack String[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("hero")
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  type      String
+  entityId  String?  @map("entity_id")
+  entityType String? @map("entity_type")
+  metadata  Json?
+  userAgent String?  @map("user_agent")
+  ipAddress String?  @map("ip_address")
+  device    String?
+  os        String?
+  browser   String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([type])
+  @@index([entityId, entityType])
+  @@index([createdAt])
+  @@map("analytics")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  action    String
+  entityType String  @map("entity_type")
+  entityId  String?  @map("entity_id")
+  metadata  Json?
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

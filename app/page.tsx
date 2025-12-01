@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";

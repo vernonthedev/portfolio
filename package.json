@@ -8,23 +8,37 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "curl -X POST http://localhost:3000/api/seed || echo 'Start dev server first: npm run dev'"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
     "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^6.19.0",
+    "@types/pg": "^8.15.6",
+    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
     "framer-motion": "^11.0.0",
     "gray-matter": "^4.0.3",
+    "jose": "^6.1.2",
     "lucide-react": "^0.344.0",
-    "next": "^14.2.0",
+    "next": "^16.0.6",
+    "next-auth": "^5.0.0-beta.30",
+    "pg": "^8.16.3",
     "qrcode.react": "^3.1.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-hook-form": "^7.50.0",
     "react-loading-skeleton": "^3.5.0",
     "react-markdown": "^9.0.0",
+    "recharts": "^3.5.1",
     "tailwind-merge": "^2.2.0",
-    "zod": "^3.22.4"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
@@ -34,6 +48,7 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.2",
     "@semantic-release/release-notes-generator": "^14.1.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
@@ -42,8 +57,10 @@
     "eslint-config-next": "^16.0.6",
     "husky": "^9.1.7",
     "postcss": "^8.4.0",
+    "prisma": "^6.19.0",
     "semantic-release": "^25.0.2",
     "tailwindcss": "^3.4.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.0"
   }
 }
