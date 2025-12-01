@@ -31,26 +31,25 @@ export function Hero() {
       />
 
       <div className="absolute inset-0">
-        {typeof window !== "undefined" &&
-          [...Array(50)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-primary-400 rounded-full"
-              initial={{
-                x: Math.random() * (window.innerWidth || 1920),
-                y: Math.random() * (window.innerHeight || 1080),
-              }}
-              animate={{
-                y: [null, Math.random() * (window.innerHeight || 1080)],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-primary-400 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              y: [null, Math.random() * window.innerHeight],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

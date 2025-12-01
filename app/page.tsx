@@ -1,11 +1,18 @@
-import { Hero } from "@/components/sections/Hero";
+import dynamic from "next/dynamic";
 import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";
 import { Blog } from "@/components/sections/Blog";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/Footer";
-import { ScrollToTop } from "@/components/ScrollToTop";
+
+const Hero = dynamic(() => import("@/components/sections/Hero").then((mod) => ({ default: mod.Hero })), {
+  ssr: false,
+});
+
+const ScrollToTop = dynamic(() => import("@/components/ScrollToTop").then((mod) => ({ default: mod.ScrollToTop })), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

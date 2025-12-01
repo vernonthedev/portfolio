@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, Github, Youtube, Twitter, Linkedin, Mail, CheckCircle, AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -19,6 +19,11 @@ type ContactFormData = z.infer<typeof contactSchema>;
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
+  const [portfolioUrl, setPortfolioUrl] = useState("https://vernonthedev.com");
+
+  useEffect(() => {
+    setPortfolioUrl(window.location.origin);
+  }, []);
 
   const {
     register,
@@ -62,8 +67,6 @@ export function Contact() {
     { name: "Twitter", icon: Twitter, href: "https://twitter.com/vernonthedev", color: "hover:text-blue-400" },
     { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/vernonthedev", color: "hover:text-blue-500" },
   ];
-
-  const portfolioUrl = typeof window !== "undefined" ? window.location.origin : "https://vernonthedev.com";
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
