@@ -23,8 +23,9 @@ export async function POST(request: Request) {
     await createAuditLog(result.user.id, "login", "user", result.user.id);
 
     return NextResponse.json({ user: result.user });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Invalid credentials" }, { status: 401 });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Invalid credentials";
+    return NextResponse.json({ error: errorMessage }, { status: 401 });
   }
 }
 

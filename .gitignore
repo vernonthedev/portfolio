@@ -44,5 +44,6 @@ next-env.d.ts
 .cursorhistory
 /lib/generated/prisma
 GEMINI.md
+WARP.md
 # Assets
 public/uploads/

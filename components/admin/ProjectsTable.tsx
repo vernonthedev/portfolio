@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Edit, Trash2, X } from "lucide-react";
 import { createProject, updateProject, deleteProject } from "@/app/actions/projects";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Project {
   id: string;
@@ -391,8 +392,8 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                   />
                   {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
                   {formData.thumbnail && !isUploading && (
-                    <div className="mt-4">
-                      <img src={formData.thumbnail} alt="Preview" className="rounded-lg max-w-xs max-h-48 object-cover" />
+                    <div className="mt-4 relative w-full max-w-xs h-48">
+                      <Image src={formData.thumbnail} alt="Preview" fill className="rounded-lg object-cover" />
                     </div>
                   )}
                 </div>

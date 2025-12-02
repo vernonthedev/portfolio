@@ -34,7 +34,7 @@ export async function trackEvent(
   type: string,
   entityId?: string,
   entityType?: string,
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 ) {
   try {
     const headersList = await headers();

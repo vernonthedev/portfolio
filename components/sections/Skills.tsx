@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Skill } from "@/types";
 import {
@@ -113,26 +113,23 @@ const CircularProgress = ({
 };
 
 export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
-  const [skills, setSkills] = useState(initialSkills);
   const [selectedCategory, setSelectedCategory] = useState<string | "all">("all");
 
-  useEffect(() => {
-    setSkills(initialSkills);
-    // Reset category selection if the initialSkills change and the current category is no longer valid
-    if (selectedCategory !== "all" && !initialSkills.some(skill => skill.category === selectedCategory)) {
-        setSelectedCategory("all");
-    }
-  }, [initialSkills, selectedCategory]); // Added selectedCategory to dependency array
+  const categories = Array.from(new Set(initialSkills.map((s) => s.category)));
 
-  const categories = Array.from(new Set(skills.map((s) => s.category)));
+  // Validate and correct selected category if it no longer exists
+  const validSelectedCategory = 
+    selectedCategory === "all" || categories.includes(selectedCategory)
+      ? selectedCategory
+      : "all";
 
-  const filteredSkills = selectedCategory === "all"
-    ? skills
-    : skills.filter((s) => s.category === selectedCategory);
+  const filteredSkills = validSelectedCategory === "all"
+    ? initialSkills
+    : initialSkills.filter((s) => s.category === validSelectedCategory);
 
   const categoryGroups = categories.map((cat) => ({
     category: cat,
-    skills: skills.filter((s) => s.category === cat),
+    skills: initialSkills.filter((s) => s.category === cat),
     icon: categoryIcons[cat as keyof typeof categoryIcons] || Wrench, // Fallback icon
     color: categoryColors[cat as keyof typeof categoryColors] || "var(--orange)", // Fallback color
   }));
@@ -243,10 +240,10 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
           <motion.button
             onClick={() => setSelectedCategory("all")}
             className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
-              selectedCategory === "all" ? "shadow-lg" : "border backdrop-blur-sm"
+              validSelectedCategory === "all" ? "shadow-lg" : "border backdrop-blur-sm"
             }`}
             style={
-              selectedCategory === "all"
+              validSelectedCategory === "all"
                 ? {
                     background: "linear-gradient(135deg, var(--orange), var(--purple))",
                     color: "var(--bg)",
@@ -269,10 +266,10 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-3 rounded-full font-semibold text-base transition-all flex items-center gap-2 ${
-                  selectedCategory === category ? "shadow-lg" : "border backdrop-blur-sm"
+                  validSelectedCategory === category ? "shadow-lg" : "border backdrop-blur-sm"
                 }`}
                 style={
-                  selectedCategory === category
+                  validSelectedCategory === category
                     ? {
                         background: `linear-gradient(135deg, ${categoryColors[category]}, var(--purple))`,
                         color: "var(--bg)",
@@ -294,7 +291,7 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
         </motion.div>
 
         <AnimatePresence mode="wait">
-          {selectedCategory === "all" ? (
+          {validSelectedCategory === "all" ? (
             <motion.div
               key="all"
               initial={{ opacity: 0 }}
@@ -377,7 +374,7 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
           className="mt-24 text-center"
         >
           <div className="inline-flex flex-wrap gap-4 justify-center max-w-5xl">
-            {skills.map((skill, index) => (
+            {initialSkills.map((skill, index) => (
               <motion.div
                 key={skill.name}
                 initial={{ opacity: 0, scale: 0 }}

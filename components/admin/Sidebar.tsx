@@ -14,7 +14,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useState } from "react";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },

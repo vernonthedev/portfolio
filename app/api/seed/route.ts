@@ -41,9 +41,10 @@ export async function POST() {
       message: "Database seeded successfully",
       admin: admin.username,
     });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Seeding failed";
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: errorMessage },
       { status: 500 }
     );
   }

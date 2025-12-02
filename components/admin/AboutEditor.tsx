@@ -10,11 +10,15 @@ interface AboutData {
   id: string;
   bio: string;
   services: string[];
-  stats: Record<string, any>;
+  stats: Record<string, unknown>;
   image?: string | null;
 }
 
-export function AboutEditor({ initialData }: { initialData: AboutData | null }) {
+export function AboutEditor({
+  initialData,
+}: {
+  initialData: AboutData | null;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [formData, setFormData] = useState({
@@ -52,7 +56,10 @@ export function AboutEditor({ initialData }: { initialData: AboutData | null }) 
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+          <label
+            className="block text-sm font-semibold mb-2"
+            style={{ color: "var(--base)" }}
+          >
             Bio
           </label>
           <textarea
@@ -70,12 +77,17 @@ export function AboutEditor({ initialData }: { initialData: AboutData | null }) 
         </div>
 
         <div>
-          <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+          <label
+            className="block text-sm font-semibold mb-2"
+            style={{ color: "var(--base)" }}
+          >
             Services (one per line)
           </label>
           <textarea
             value={formData.services}
-            onChange={(e) => setFormData({ ...formData, services: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, services: e.target.value })
+            }
             className="w-full px-4 py-2 rounded-xl border"
             style={{
               borderColor: "var(--border-subtle)",
@@ -88,12 +100,17 @@ export function AboutEditor({ initialData }: { initialData: AboutData | null }) 
         </div>
 
         <div>
-          <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+          <label
+            className="block text-sm font-semibold mb-2"
+            style={{ color: "var(--base)" }}
+          >
             Stats (JSON)
           </label>
           <textarea
             value={formData.stats}
-            onChange={(e) => setFormData({ ...formData, stats: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, stats: e.target.value })
+            }
             className="w-full px-4 py-2 rounded-xl border font-mono text-sm"
             style={{
               borderColor: "var(--border-subtle)",
@@ -123,4 +140,3 @@ export function AboutEditor({ initialData }: { initialData: AboutData | null }) 
     </div>
   );
 }
-

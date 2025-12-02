@@ -8,12 +8,12 @@ import { useTheme } from "@/components/ThemeProvider";
 
 export function Header() {
   const router = useRouter();
-  const { theme, resolvedTheme, toggleTheme } = useTheme();
+  const { resolvedTheme, toggleTheme } = useTheme();
   const [showProfile, setShowProfile] = useState(false);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/admin/login");
+    router.push("/login");
     router.refresh();
   };
 

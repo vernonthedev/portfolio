@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Edit, Trash2, X } from "lucide-react";
 import { createBlogPost, updateBlogPost, deleteBlogPost } from "@/app/actions/blog";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface BlogPost {
   id: string;
@@ -350,8 +351,8 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                   />
                   {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
                   {formData.image && !isUploading && (
-                    <div className="mt-4">
-                      <img src={formData.image} alt="Preview" className="rounded-lg max-w-xs max-h-48 object-cover" />
+                    <div className="mt-4 relative w-full max-w-xs h-48">
+                      <Image src={formData.image} alt="Preview" fill className="rounded-lg object-cover" />
                     </div>
                   )}
                 </div>

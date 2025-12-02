@@ -25,30 +25,35 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem("theme") as Theme | null;
-      if (saved) {
+      if (saved && saved !== theme) {
         setThemeState(saved);
       }
     } catch {
       // ignore
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const resolved = theme === "system" ? getSystemTheme() : theme;
-    setResolvedTheme(resolved);
+    const updateTheme = () => {
+      const resolved = theme === "system" ? getSystemTheme() : theme;
+      setResolvedTheme(resolved);
 
-    const root = document.documentElement;
-    if (resolved === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+      const root = document.documentElement;
+      if (resolved === "dark") {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
 
-    try {
-      window.localStorage.setItem("theme", theme);
-    } catch {
-      // ignore
-    }
+      try {
+        window.localStorage.setItem("theme", theme);
+      } catch {
+        // ignore
+      }
+    };
+
+    updateTheme();
   }, [theme]);
 
   useEffect(() => {
