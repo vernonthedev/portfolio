@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navigation } from "@/components/Navigation";
+import { headers as nextHeaders } from "next/headers";
 
 export const metadata: Metadata = {
   title: "vernonthedev | Full-Stack Developer",
@@ -59,11 +60,14 @@ const structuredData = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await nextHeaders();
+  const pathname = headersList.get("x-pathname") || headersList.get("next-url") || "";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -92,7 +96,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          <Navigation />
+          {!pathname.startsWith("/admin") && <Navigation />}
           {children}
         </ThemeProvider>
       </body>
