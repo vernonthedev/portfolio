@@ -14,7 +14,27 @@ const heroSchema = z.object({
 });
 
 export async function getHero() {
-  const hero = await prisma.hero.findFirst();
+  const defaultTechStack = [
+    "Laravel",
+    "Flutter",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "PHP",
+  ];
+
+  const hero = await prisma.hero.upsert({
+    where: { id: "default" },
+    update: {},
+    create: {
+      id: "default",
+      title: "The full-stack developer for modern applications",
+      subtitle:
+        "I help startups and businesses build modern web & mobile applications with clean code and beautiful interfaces.",
+      tagline: null,
+      techStack: defaultTechStack,
+    },
+  });
   return hero;
 }
 
@@ -34,4 +54,3 @@ export async function updateHero(data: z.infer<typeof heroSchema>) {
 
   return hero;
 }
-

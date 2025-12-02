@@ -14,7 +14,32 @@ const aboutSchema = z.object({
 });
 
 export async function getAbout() {
-  const about = await prisma.about.findFirst();
+  const defaultStats = [
+    { icon: "Code", label: "Projects Built", value: "50+", color: "var(--orange)" },
+    { icon: "Youtube", label: "YouTube Videos", value: "100+", color: "var(--purple)" },
+    { icon: "Rocket", label: "Years Experience", value: "5+", color: "var(--orange)" },
+    { icon: "Zap", label: "Happy Clients", value: "30+", color: "var(--purple)" },
+  ];
+  const defaultServices = [
+    "Build scalable web applications with Laravel & Next.js",
+    "Create beautiful mobile apps with Flutter",
+    "Develop Progressive Web Apps (PWAs)",
+    "Design and implement RESTful APIs",
+    "Set up CI/CD pipelines and DevOps workflows",
+    "Share knowledge through YouTube tutorials",
+  ];
+
+  const about = await prisma.about.upsert({
+    where: { id: "default" },
+    update: {},
+    create: {
+      id: "default",
+      bio: "My journey in software development started with curiosity and evolved into a passion for creating elegant, efficient, and user-friendly applications.\n\nI specialize in Laravel for robust backend systems, Flutter for beautiful mobile experiences, and modern JavaScript frameworks for dynamic web applications. When I'm not coding, you'll find me sharing my knowledge on YouTube, contributing to open-source projects, or exploring the latest tech trends.\n\nI believe in building in public, sharing my journey, and helping others grow. Every project is an opportunity to learn something new and push the boundaries of what's possible.",
+      services: defaultServices,
+      stats: defaultStats,
+      image: null,
+    },
+  });
   return about;
 }
 

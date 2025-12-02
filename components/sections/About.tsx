@@ -10,36 +10,23 @@ import {
   Zap,
   ArrowRight,
   Sparkles,
+  LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
+import { AboutData } from "@/types";
 
-const stats = [
-  { icon: Code, label: "Projects Built", value: "50+", color: "var(--orange)" },
-  {
-    icon: Youtube,
-    label: "YouTube Videos",
-    value: "100+",
-    color: "var(--purple)",
-  },
-  {
-    icon: Rocket,
-    label: "Years Experience",
-    value: "5+",
-    color: "var(--orange)",
-  },
-  { icon: Zap, label: "Happy Clients", value: "30+", color: "var(--purple)" },
-];
+const lucideIcons: { [key: string]: LucideIcon } = {
+  Code: Code,
+  Youtube: Youtube,
+  Coffee: Coffee,
+  Rocket: Rocket,
+  User: User,
+  Zap: Zap,
+};
 
-const services = [
-  "Build scalable web applications with Laravel & Next.js",
-  "Create beautiful mobile apps with Flutter",
-  "Develop Progressive Web Apps (PWAs)",
-  "Design and implement RESTful APIs",
-  "Set up CI/CD pipelines and DevOps workflows",
-  "Share knowledge through YouTube tutorials",
-];
+export function About({ aboutData }: { aboutData: AboutData }) {
+  const { bio, services, stats, image } = aboutData;
 
-export function About() {
   return (
     <section
       id="about"
@@ -160,7 +147,7 @@ export function About() {
               <div className="relative rounded-[2.5em] overflow-hidden group">
                 <div className="aspect-[3/4] relative bg-base/5">
                   <Image
-                    src="/images/me/ait.png"
+                    src={image || "/images/me/ait.png"}
                     alt="vernonthedev"
                     fill
                     className="object-cover"
@@ -197,7 +184,7 @@ export function About() {
 
               <div className="mt-12 grid grid-cols-2 gap-4">
                 {stats.map((stat, index) => {
-                  const Icon = stat.icon;
+                  const Icon = lucideIcons[stat.icon] || User; // Use mapped icon with User as fallback
                   return (
                     <motion.div
                       key={stat.label}
@@ -309,30 +296,21 @@ export function About() {
                   className="text-lg leading-relaxed mb-6"
                   style={{ color: "var(--base)" }}
                 >
-                  My journey in software development started with curiosity and
-                  evolved into a passion for creating elegant, efficient, and
-                  user-friendly applications.
+                  {bio.split("\n")[0]}
                 </p>
 
                 <p
                   className="text-base leading-relaxed mb-6"
                   style={{ color: "var(--grey)" }}
                 >
-                  I specialize in Laravel for robust backend systems, Flutter
-                  for beautiful mobile experiences, and modern JavaScript
-                  frameworks for dynamic web applications. When I&apos;m not
-                  coding, you&apos;ll find me sharing my knowledge on YouTube,
-                  contributing to open-source projects, or exploring the latest
-                  tech trends.
+                  {bio.split("\n").slice(1, 2).join("\n")}
                 </p>
 
                 <p
                   className="text-base leading-relaxed"
                   style={{ color: "var(--grey)" }}
                 >
-                  I believe in building in public, sharing my journey, and
-                  helping others grow. Every project is an opportunity to learn
-                  something new and push the boundaries of what&apos;s possible.
+                  {bio.split("\n").slice(2).join("\n")}
                 </p>
               </div>
             </div>

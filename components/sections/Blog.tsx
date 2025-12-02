@@ -1,69 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ArrowRight, BookOpen, PenTool } from "lucide-react";
 import Image from "next/image";
 import { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";
 
-const blogPosts: BlogPost[] = [
-  {
-    slug: "laravel-tips-2024",
-    title: "Advanced Laravel Tips for 2024",
-    excerpt: "Discover powerful Laravel techniques and best practices to level up your backend development.",
-    content: "",
-    date: "2024-01-15",
-    category: "Laravel Tips",
-    featured: true,
-  },
-  {
-    slug: "flutter-state-management",
-    title: "State Management in Flutter: A Complete Guide",
-    excerpt: "Exploring different state management solutions in Flutter and when to use each one.",
-    content: "",
-    date: "2024-01-10",
-    category: "Flutter Dev",
-    featured: true,
-  },
-  {
-    slug: "pwa-best-practices",
-    title: "Building PWAs That Feel Native",
-    excerpt: "Learn how to create Progressive Web Apps that provide a seamless user experience.",
-    content: "",
-    date: "2024-01-05",
-    category: "PWA Development",
-    featured: false,
-  },
-  {
-    slug: "docker-ci-cd",
-    title: "Docker & CI/CD: Streamlining Your Workflow",
-    excerpt: "Setting up automated deployments with Docker and modern CI/CD pipelines.",
-    content: "",
-    date: "2023-12-20",
-    category: "DevOps & CI/CD",
-    featured: false,
-  },
-  {
-    slug: "building-in-public",
-    title: "My Journey Building in Public",
-    excerpt: "Reflections on sharing my development journey and the lessons learned along the way.",
-    content: "",
-    date: "2023-12-15",
-    category: "Dev Journey",
-    featured: true,
-  },
-];
-
-const categories = ["All", "Laravel Tips", "Flutter Dev", "PWA Development", "DevOps & CI/CD", "Dev Journey"];
-
-export function Blog() {
+export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
+  const [posts, setPosts] = useState(initialPosts);
+  const [filteredPosts, setFilteredPosts] = useState(initialPosts);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const filteredPosts =
-    selectedCategory === "All"
-      ? blogPosts
-      : blogPosts.filter((post) => post.category === selectedCategory);
+  useEffect(() => {
+    setPosts(initialPosts);
+    setFilteredPosts(initialPosts);
+  }, [initialPosts]);
+
+  const allCategories = [
+    "All",
+    ...Array.from(new Set(posts.map((post) => post.category))),
+  ];
+
+  useEffect(() => {
+    if (selectedCategory === "All") {
+      setFilteredPosts(posts);
+    } else {
+      setFilteredPosts(posts.filter((post) => post.category === selectedCategory));
+    }
+  }, [selectedCategory, posts]);
 
   return (
     <section
@@ -168,7 +133,7 @@ export function Blog() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap gap-4 justify-center mb-16"
         >
-          {categories.map((category) => (
+          {allCategories.map((category) => (
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -228,7 +193,7 @@ export function Blog() {
                 >
                   <div className="aspect-video rounded-[1.5em] overflow-hidden m-6 mb-0 relative bg-base/5 group/image">
                     <Image
-                      src={`https://picsum.photos/seed/${post.slug}/1200/750`}
+                      src={post.image || "/placeholder.svg"}
                       alt={post.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover/image:scale-110"

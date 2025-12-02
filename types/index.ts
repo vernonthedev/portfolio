@@ -1,36 +1,42 @@
 export interface Project {
   id: string;
+  slug: string;
   name: string;
   description: string;
-  html_url: string;
-  homepage?: string;
-  language?: string;
-  topics?: string[];
-  stargazers_count: number;
-  forks_count: number;
-  created_at: string;
-  updated_at: string;
+  htmlUrl?: string | null;
+  homepage?: string | null;
+  language?: string | null;
+  topics: string[];
+  stargazersCount: number;
+  forksCount: number;
   featured?: boolean;
-  thumbnail?: string;
-  category?: "web" | "mobile" | "backend" | "fullstack" | "desktop";
+  thumbnail?: string | null;
+  category?: "web" | "mobile" | "backend" | "fullstack" | "desktop" | null;
 }
 
 export interface BlogPost {
+  id: string;
   slug: string;
   title: string;
   excerpt: string;
   content: string;
-  date: string;
+  date: Date;
   category: string;
   featured?: boolean;
-  image?: string;
+  image?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Skill {
+  id: string;
   name: string;
   level: number;
-  category: "frontend" | "backend" | "mobile" | "devops" | "tools";
-  icon?: string;
+  category: string;
+  icon?: string | null;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ContactFormData {
@@ -50,3 +56,27 @@ export interface WebsiteDetails {
   email: string;
 }
 
+export interface AboutData {
+  id: string;
+  bio: string;
+  services: string[];
+  stats: {
+    icon: string;
+    label: string;
+    value: string;
+    color: string;
+  }[];
+  image?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface HeroData {
+  id: string;
+  title: string;
+  subtitle: string;
+  tagline?: string | null;
+  techStack: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}

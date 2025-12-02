@@ -3,15 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-
-const techStack = [
-  "Laravel",
-  "Flutter",
-  "Next.js",
-  "React",
-  "TypeScript",
-  "PHP",
-];
+import { HeroData } from "@/types"; // Import HeroData
 
 const floatingOrbs = Array.from({ length: 8 }, (_, i) => ({
   id: i,
@@ -21,7 +13,7 @@ const floatingOrbs = Array.from({ length: 8 }, (_, i) => ({
   duration: Math.random() * 25 + 20,
 }));
 
-export function Hero() {
+export function Hero({ heroData }: { heroData: HeroData }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll({
@@ -33,7 +25,8 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
-  const words = "The full-stack developer for modern applications".split(" ");
+  const words = heroData.title.split(" ");
+  const techStack = heroData.techStack;
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -60,7 +53,8 @@ export function Hero() {
         animate={{ opacity: 0.1, scale: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <div className="font-youth text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
+        <div
+          className="font-youth text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -73,7 +67,8 @@ export function Hero() {
         animate={{ opacity: 0.08, scale: 1 }}
         transition={{ duration: 1, delay: 0.7 }}
       >
-        <div className="font-youth text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight rotate-12"
+        <div
+          className="font-youth text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight rotate-12"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -131,9 +126,15 @@ export function Hero() {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Sparkles className="w-5 h-5" style={{ color: "var(--orange)" }} />
+              <Sparkles
+                className="w-5 h-5"
+                style={{ color: "var(--orange)" }}
+              />
             </motion.div>
-            <span className="text-base md:text-lg font-semibold" style={{ color: "var(--grey)" }}>
+            <span
+              className="text-base md:text-lg font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Available for new projects
             </span>
           </motion.div>
@@ -144,7 +145,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mb-6"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border backdrop-blur-sm"
+            <div
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl border backdrop-blur-sm"
               style={{
                 borderColor: "var(--border-subtle)",
                 backgroundColor: "var(--bg-d)",
@@ -153,13 +155,22 @@ export function Hero() {
               <motion.div
                 className="w-10 h-10 rounded-xl flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                  background:
+                    "linear-gradient(135deg, var(--orange), var(--purple))",
                 }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span className="text-xl font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+                <span
+                  className="text-xl font-youth font-bold"
+                  style={{ color: "var(--bg)" }}
+                >
+                  VD
+                </span>
               </motion.div>
-              <span className="text-lg md:text-xl font-youth font-bold tracking-tight" style={{ color: "var(--base)" }}>
+              <span
+                className="text-lg md:text-xl font-youth font-bold tracking-tight"
+                style={{ color: "var(--base)" }}
+              >
                 vernonthedev
               </span>
             </div>
@@ -215,8 +226,7 @@ export function Hero() {
             className="text-xl md:text-2xl lg:text-3xl max-w-3xl mx-auto leading-relaxed font-medium"
             style={{ color: "var(--grey)" }}
           >
-            I help startups and businesses build modern web & mobile applications
-            with clean code and beautiful interfaces.
+            {heroData.subtitle}
           </motion.p>
 
           <motion.div
@@ -264,7 +274,8 @@ export function Hero() {
               href="#contact"
               className="group relative inline-flex items-center gap-4 px-10 py-5 rounded-full overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                background:
+                  "linear-gradient(135deg, var(--orange), var(--purple))",
                 color: "var(--bg)",
               }}
               whileHover={{ scale: 1.08, y: -4 }}
@@ -273,11 +284,15 @@ export function Hero() {
               <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100"
                 style={{
-                  background: "linear-gradient(135deg, var(--purple), var(--orange))",
+                  background:
+                    "linear-gradient(135deg, var(--purple), var(--orange))",
                 }}
                 transition={{ duration: 0.3 }}
               />
-              <span className="relative z-10 font-youth text-base md:text-lg uppercase font-bold tracking-tight" style={{ color: "#ffffff" }}>
+              <span
+                className="relative z-10 font-youth text-base md:text-lg uppercase font-bold tracking-tight"
+                style={{ color: "#ffffff" }}
+              >
                 Let&apos;s work together
               </span>
               <motion.div

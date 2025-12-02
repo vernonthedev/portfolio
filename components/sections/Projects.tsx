@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ExternalLink,
   Github,
   Star,
   GitFork,
@@ -13,8 +12,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { Project } from "@/types";
-import { fetchGitHubRepos } from "@/lib/github";
-import { formatDate } from "@/lib/utils";
 
 const categories: Array<Project["category"] | "all"> = [
   "all",
@@ -25,28 +22,17 @@ const categories: Array<Project["category"] | "all"> = [
   "desktop",
 ];
 
-export function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
+export function Projects({ projects: initialProjects }: { projects: Project[] }) {
+  const [projects, setProjects] = useState(initialProjects);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     Project["category"] | "all"
   >("all");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadProjects() {
-      try {
-        const repos = await fetchGitHubRepos();
-        setProjects(repos);
-        setFilteredProjects(repos);
-      } catch (error) {
-        console.error("Error loading projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadProjects();
-  }, []);
+    setProjects(initialProjects);
+    setFilteredProjects(initialProjects);
+  }, [initialProjects]);
 
   useEffect(() => {
     if (selectedCategory === "all") {
@@ -213,17 +199,7 @@ export function Projects() {
           ))}
         </motion.div>
 
-        {loading ? (
-          <div className="text-center py-20">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="inline-block w-16 h-16 rounded-full border-4 border-t-transparent"
-              style={{ borderColor: "var(--orange)" }}
-            />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             <AnimatePresence mode="wait">
               {displayProjects.slice(0, 6).map((project, index) => (
                 <motion.div
@@ -253,14 +229,12 @@ export function Projects() {
                     whileHover={{ y: -12 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     onClick={() => {
-                      window.location.href = `/projects/${project.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`;
+                      window.location.href = `/projects/${project.slug}`;
                     }}
                   >
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
-                        src={`https://picsum.photos/seed/${project.id}/1200/750`}
+                        src={project.thumbnail || "/placeholder.svg"}
                         alt={project.name}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -294,25 +268,27 @@ export function Projects() {
                         whileHover={{ opacity: 1, y: 0 }}
                       >
                         <div className="flex items-center gap-3">
-                          <motion.button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              window.open(
-                                project.html_url,
-                                "_blank",
-                                "noopener,noreferrer"
-                              );
-                            }}
-                            className="p-3 rounded-full backdrop-blur-md z-10"
-                            style={{
-                              backgroundColor: "var(--bg-d)",
-                              color: "var(--base)",
-                            }}
-                            whileHover={{ scale: 1.1, rotate: 90 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Github className="w-5 h-5" />
-                          </motion.button>
+                          {project.htmlUrl && (
+                            <motion.button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(
+                                  project.htmlUrl,
+                                  "_blank",
+                                  "noopener,noreferrer"
+                                );
+                              }}
+                              className="p-3 rounded-full backdrop-blur-md z-10"
+                              style={{
+                                backgroundColor: "var(--bg-d)",
+                                color: "var(--base)",
+                              }}
+                              whileHover={{ scale: 1.1, rotate: 90 }}
+                              whileTap={{ scale: 0.9 }}
+                            >
+                              <Github className="w-5 h-5" />
+                            </motion.button>
+                          )}
                           {project.homepage && (
                             <motion.button
                               onClick={(e) => {
@@ -389,14 +365,14 @@ export function Projects() {
                               className="w-5 h-5"
                               style={{ color: "var(--orange)" }}
                             />
-                            {project.stargazers_count}
+                            {project.stargazersCount}
                           </span>
                           <span className="flex items-center gap-2 font-semibold">
                             <GitFork
                               className="w-5 h-5"
                               style={{ color: "var(--purple)" }}
                             />
-                            {project.forks_count}
+                            {project.forksCount}
                           </span>
                         </div>
                         {project.language && (
@@ -414,9 +390,8 @@ export function Projects() {
               ))}
             </AnimatePresence>
           </div>
-        )}
 
-        {displayProjects.length === 0 && !loading && (
+        {displayProjects.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

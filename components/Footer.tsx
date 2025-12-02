@@ -1,17 +1,59 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Youtube, Twitter, Linkedin, Heart } from "lucide-react";
+import { Github, Youtube, Linkedin, X } from "lucide-react";
+import { useEffect, useState } from "react";
+
+type Bubble = {
+  id: number;
+  width: number;
+  height: number;
+  left: string;
+  top: string;
+};
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { name: "GitHub", icon: Github, href: "https://github.com/vernonthedev", label: "GitHub" },
-    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@vernonthedev", label: "YouTube" },
-    { name: "Twitter", icon: Twitter, href: "https://twitter.com/vernonthedev", label: "X" },
-    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/vernonthedev", label: "LinkedIn" },
+    {
+      name: "GitHub",
+      icon: Github,
+      href: "https://github.com/vernonthedev",
+      label: "GitHub",
+    },
+    {
+      name: "YouTube",
+      icon: Youtube,
+      href: "https://youtube.com/@vernonthedev",
+      label: "YouTube",
+    },
+    {
+      name: "X",
+      icon: X,
+      href: "https://x.com/vernonthedev",
+      label: "X",
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      href: "https://linkedin.com/in/vernonthedev",
+      label: "LinkedIn",
+    },
   ];
+
+  const [bubbles, setBubbles] = useState<Bubble[]>([]);
+
+  useEffect(() => {
+    const newBubbles = Array.from({ length: 5 }).map((_, i) => ({
+      id: i,
+      width: Math.random() * 200 + 100,
+      height: Math.random() * 200 + 100,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setBubbles(newBubbles);
+  }, []);
 
   return (
     <footer
@@ -19,24 +61,25 @@ export function Footer() {
       style={{ backgroundColor: "var(--base)", color: "var(--bg)" }}
     >
       <div className="absolute inset-0 opacity-10">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {bubbles.map((bubble) => (
           <motion.div
-            key={i}
+            key={bubble.id}
             className="absolute rounded-full blur-2xl"
             style={{
-              width: Math.random() * 200 + 100,
-              height: Math.random() * 200 + 100,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: "linear-gradient(135deg, var(--orange), var(--purple))",
+              width: bubble.width,
+              height: bubble.height,
+              left: bubble.left,
+              top: bubble.top,
+              background:
+                "linear-gradient(135deg, var(--orange), var(--purple))",
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
+              x: [0, bubble.left],
+              y: [0, bubble.top],
               scale: [1, 1.2, 0.8, 1],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: bubble.id * 0.5,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -95,16 +138,6 @@ export function Footer() {
           >
             <p className="text-sm opacity-80">
               © {currentYear} vernonthedev. All rights reserved.
-            </p>
-            <p className="text-xs opacity-60 flex items-center justify-center gap-1.5">
-              Made with
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-              >
-                <Heart className="w-3.5 h-3.5" style={{ color: "var(--red)" }} fill="var(--red)" />
-              </motion.span>
-              using Next.js
             </p>
           </motion.div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Skill } from "@/types";
 import {
@@ -12,21 +12,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-const skills: Skill[] = [
-  { name: "Laravel", level: 95, category: "backend", icon: "laravel" },
-  { name: "Flutter", level: 90, category: "mobile", icon: "flutter" },
-  { name: "JavaScript", level: 88, category: "frontend", icon: "js" },
-  { name: "TypeScript", level: 85, category: "frontend", icon: "ts" },
-  { name: "PHP", level: 92, category: "backend", icon: "php" },
-  { name: "Next.js", level: 87, category: "frontend", icon: "next" },
-  { name: "NestJS", level: 80, category: "backend", icon: "nestjs" },
-  { name: "MongoDB", level: 85, category: "backend", icon: "mongo" },
-  { name: "IndexedDB", level: 82, category: "backend", icon: "db" },
-  { name: "Electron", level: 75, category: "tools", icon: "electron" },
-  { name: "Tailwind CSS", level: 90, category: "frontend", icon: "tailwind" },
-  { name: "Docker", level: 78, category: "devops", icon: "docker" },
-  { name: "Git", level: 88, category: "tools", icon: "git" },
-];
+
 
 const categoryIcons = {
   frontend: Code,
@@ -126,8 +112,18 @@ const CircularProgress = ({
   );
 };
 
-export function Skills() {
+export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
+  const [skills, setSkills] = useState(initialSkills);
   const [selectedCategory, setSelectedCategory] = useState<string | "all">("all");
+
+  useEffect(() => {
+    setSkills(initialSkills);
+    // Reset category selection if the initialSkills change and the current category is no longer valid
+    if (selectedCategory !== "all" && !initialSkills.some(skill => skill.category === selectedCategory)) {
+        setSelectedCategory("all");
+    }
+  }, [initialSkills, selectedCategory]); // Added selectedCategory to dependency array
+
   const categories = Array.from(new Set(skills.map((s) => s.category)));
 
   const filteredSkills = selectedCategory === "all"
@@ -137,8 +133,8 @@ export function Skills() {
   const categoryGroups = categories.map((cat) => ({
     category: cat,
     skills: skills.filter((s) => s.category === cat),
-    icon: categoryIcons[cat],
-    color: categoryColors[cat],
+    icon: categoryIcons[cat as keyof typeof categoryIcons] || Wrench, // Fallback icon
+    color: categoryColors[cat as keyof typeof categoryColors] || "var(--orange)", // Fallback color
   }));
 
   return (
