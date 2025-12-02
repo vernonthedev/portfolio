@@ -66,7 +66,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const headersList = await nextHeaders();
-  const pathname = headersList.get("x-pathname") || headersList.get("next-url") || "";
+  const requestUrl = headersList.get("x-url");
+
+  let pathname = "";
+
+  if (requestUrl) {
+    try {
+      const url = new URL(requestUrl);
+      pathname = url.pathname;
+    } catch {
+      pathname = "";
+    }
+  }
+  // If no pathname is derived from x-pathname or referer, it remains ""
+
+  // Check if we should hide navigation on admin and login pages
+  const shouldHideNavigation = pathname.startsWith("/admin") || pathname.startsWith("/login") || pathname === "/login";
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -96,7 +111,7 @@ export default async function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          {!pathname.startsWith("/admin") && <Navigation />}
+          {!shouldHideNavigation && <Navigation />}
           {children}
         </ThemeProvider>
       </body>
