@@ -1,5 +1,18 @@
 # Changelog
 
+# [1.1.0](https://github.com/vernonthedev/portfolio/compare/v1.0.2...v1.1.0) (2025-12-02)
+
+
+### Bug Fixes
+
+* ensure home app bar is hidden on login page ([6b915ae](https://github.com/vernonthedev/portfolio/commit/6b915ae49d0e1a36dbf02b526e3e7cf29dcb8126))
+* removed the appbar from the login page, fixes [#16](https://github.com/vernonthedev/portfolio/issues/16) ([f046e6c](https://github.com/vernonthedev/portfolio/commit/f046e6c4c80b7dacbced0fcf0f1f237323851689))
+
+
+### Features
+
+* initialized nextjs application structure with root and main layouts and home page ([f55a79f](https://github.com/vernonthedev/portfolio/commit/f55a79fb7f570a5d75b643fb9001112f0bc30b7e))
+
 ## [1.0.2](https://github.com/vernonthedev/portfolio/compare/v1.0.1...v1.0.2) (2025-12-02)
 
 
