@@ -2,19 +2,35 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Star, GitFork, Filter, Sparkles, ArrowUpRight } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Star,
+  GitFork,
+  Filter,
+  Sparkles,
+  ArrowUpRight,
+} from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { Project } from "@/types";
 import { fetchGitHubRepos } from "@/lib/github";
 import { formatDate } from "@/lib/utils";
 
-const categories: Array<Project["category"] | "all"> = ["all", "web", "mobile", "backend", "fullstack", "desktop"];
+const categories: Array<Project["category"] | "all"> = [
+  "all",
+  "web",
+  "mobile",
+  "backend",
+  "fullstack",
+  "desktop",
+];
 
 export function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Project["category"] | "all">("all");
+  const [selectedCategory, setSelectedCategory] = useState<
+    Project["category"] | "all"
+  >("all");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,14 +52,17 @@ export function Projects() {
     if (selectedCategory === "all") {
       setFilteredProjects(projects);
     } else {
-      setFilteredProjects(projects.filter((p) => p.category === selectedCategory));
+      setFilteredProjects(
+        projects.filter((p) => p.category === selectedCategory)
+      );
     }
   }, [selectedCategory, projects]);
 
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
-  const displayProjects = selectedCategory === "all" && featuredProjects.length > 0
-    ? featuredProjects
-    : filteredProjects;
+  const displayProjects =
+    selectedCategory === "all" && featuredProjects.length > 0
+      ? featuredProjects
+      : filteredProjects;
 
   return (
     <section
@@ -58,7 +77,8 @@ export function Projects() {
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="font-youth text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight rotate-12"
+        <div
+          className="font-youth text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight rotate-12"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -87,17 +107,27 @@ export function Projects() {
             <motion.div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                background:
+                  "linear-gradient(135deg, var(--orange), var(--purple))",
               }}
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-sm font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+              <span
+                className="text-sm font-youth font-bold"
+                style={{ color: "var(--bg)" }}
+              >
+                VD
+              </span>
             </motion.div>
             <Sparkles className="w-5 h-5" style={{ color: "var(--orange)" }} />
-            <span className="text-base font-semibold" style={{ color: "var(--grey)" }}>
+            <span
+              className="text-base font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Featured Work
             </span>
-            <span className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
+            <span
+              className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
               style={{
                 backgroundColor: "var(--orange)20",
                 color: "var(--orange)",
@@ -160,7 +190,8 @@ export function Projects() {
               style={
                 selectedCategory === category
                   ? {
-                      background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                      background:
+                        "linear-gradient(135deg, var(--orange), var(--purple))",
                       color: "var(--bg)",
                     }
                   : {
@@ -211,18 +242,23 @@ export function Projects() {
                   <div
                     className="absolute inset-0 rounded-[2em] opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500 pointer-events-none"
                     style={{
-                      background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                      background:
+                        "linear-gradient(135deg, var(--orange), var(--purple))",
                     }}
                   />
 
-                  <Link href={`/projects/${project.name.toLowerCase().replace(/\s+/g, "-")}`}>
-                    <motion.div
-                      className="relative rounded-[2em] overflow-hidden h-full cursor-pointer"
-                      style={{ backgroundColor: "var(--bg-d)" }}
-                      whileHover={{ y: -12 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className="relative aspect-[16/10] overflow-hidden">
+                  <motion.div
+                    className="relative rounded-[2em] overflow-hidden h-full cursor-pointer"
+                    style={{ backgroundColor: "var(--bg-d)" }}
+                    whileHover={{ y: -12 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    onClick={() => {
+                      window.location.href = `/projects/${project.name
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`;
+                    }}
+                  >
+                    <div className="relative aspect-[16/10] overflow-hidden">
                       <Image
                         src={`https://picsum.photos/seed/${project.id}/1200/750`}
                         alt={project.name}
@@ -232,7 +268,8 @@ export function Projects() {
                       <div
                         className="absolute inset-0 bg-gradient-to-br transition-opacity"
                         style={{
-                          background: "linear-gradient(135deg, var(--purple), var(--orange))",
+                          background:
+                            "linear-gradient(135deg, var(--purple), var(--orange))",
                           opacity: 0.4,
                         }}
                       />
@@ -240,12 +277,15 @@ export function Projects() {
                         <motion.div
                           className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-md shadow-xl flex items-center gap-2"
                           style={{
-                            background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                            background:
+                              "linear-gradient(135deg, var(--orange), var(--purple))",
                             color: "var(--bg)",
                           }}
                           whileHover={{ scale: 1.1 }}
                         >
-                          <span className="text-sm font-bold uppercase tracking-wide">Featured</span>
+                          <span className="text-sm font-bold uppercase tracking-wide">
+                            Featured
+                          </span>
                         </motion.div>
                       )}
                       <motion.div
@@ -254,10 +294,15 @@ export function Projects() {
                         whileHover={{ opacity: 1, y: 0 }}
                       >
                         <div className="flex items-center gap-3">
-                          <motion.a
-                            href={project.html_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(
+                                project.html_url,
+                                "_blank",
+                                "noopener,noreferrer"
+                              );
+                            }}
                             className="p-3 rounded-full backdrop-blur-md z-10"
                             style={{
                               backgroundColor: "var(--bg-d)",
@@ -265,26 +310,30 @@ export function Projects() {
                             }}
                             whileHover={{ scale: 1.1, rotate: 90 }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={(e) => e.stopPropagation()}
                           >
                             <Github className="w-5 h-5" />
-                          </motion.a>
+                          </motion.button>
                           {project.homepage && (
-                            <motion.a
-                              href={project.homepage}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            <motion.button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(
+                                  project.homepage,
+                                  "_blank",
+                                  "noopener,noreferrer"
+                                );
+                              }}
                               className="p-3 rounded-full backdrop-blur-md z-10"
                               style={{
-                                background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                                background:
+                                  "linear-gradient(135deg, var(--orange), var(--purple))",
                                 color: "var(--bg)",
                               }}
                               whileHover={{ scale: 1.1, rotate: -90 }}
                               whileTap={{ scale: 0.9 }}
-                              onClick={(e) => e.stopPropagation()}
                             >
                               <ArrowUpRight className="w-5 h-5" />
-                            </motion.a>
+                            </motion.button>
                           )}
                         </div>
                       </motion.div>
@@ -336,16 +385,23 @@ export function Projects() {
                       >
                         <div className="flex items-center gap-6">
                           <span className="flex items-center gap-2 font-semibold">
-                            <Star className="w-5 h-5" style={{ color: "var(--orange)" }} />
+                            <Star
+                              className="w-5 h-5"
+                              style={{ color: "var(--orange)" }}
+                            />
                             {project.stargazers_count}
                           </span>
                           <span className="flex items-center gap-2 font-semibold">
-                            <GitFork className="w-5 h-5" style={{ color: "var(--purple)" }} />
+                            <GitFork
+                              className="w-5 h-5"
+                              style={{ color: "var(--purple)" }}
+                            />
                             {project.forks_count}
                           </span>
                         </div>
                         {project.language && (
-                          <span className="font-bold px-4 py-2 rounded-lg"
+                          <span
+                            className="font-bold px-4 py-2 rounded-lg"
                             style={{ backgroundColor: "var(--bg-darker)" }}
                           >
                             {project.language}
@@ -353,8 +409,7 @@ export function Projects() {
                         )}
                       </div>
                     </div>
-                    </motion.div>
-                  </Link>
+                  </motion.div>
                 </motion.div>
               ))}
             </AnimatePresence>

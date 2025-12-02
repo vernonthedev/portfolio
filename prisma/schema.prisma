@@ -38,7 +38,7 @@ enum UserRole {
 
 model Skill {
   id        String   @id @default(cuid())
-  name      String
+  name      String   @unique
   level     Int      @default(0)
   category  String
   icon      String?

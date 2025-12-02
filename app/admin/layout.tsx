@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { getSession } from "@/lib/auth";
 import { AdminLayoutClient } from "@/components/admin/AdminLayoutClient";
 
 export default async function AdminLayout({
@@ -7,12 +5,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
-
-  if (!session) {
-    redirect("/admin/login");
-  }
-
+  // Session check removed - handled by middleware.ts
+  // This allows /admin/login to render without redirect loop
   return <AdminLayoutClient>{children}</AdminLayoutClient>;
 }
-
