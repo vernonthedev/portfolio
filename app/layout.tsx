@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Navigation } from "@/components/Navigation";
-import { headers as nextHeaders } from "next/headers";
 
 export const metadata: Metadata = {
   title: "vernonthedev | Full-Stack Developer",
@@ -65,24 +63,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await nextHeaders();
-  const requestUrl = headersList.get("x-url");
-
-  let pathname = "";
-
-  if (requestUrl) {
-    try {
-      const url = new URL(requestUrl);
-      pathname = url.pathname;
-    } catch {
-      pathname = "";
-    }
-  }
-  // If no pathname is derived from x-pathname or referer, it remains ""
-
-  // Check if we should hide navigation on admin and login pages
-  const shouldHideNavigation = pathname.startsWith("/admin") || pathname.startsWith("/login") || pathname === "/login";
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -111,7 +91,6 @@ export default async function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          {!shouldHideNavigation && <Navigation />}
           {children}
         </ThemeProvider>
       </body>
