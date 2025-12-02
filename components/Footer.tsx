@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Github, Youtube, Linkedin, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Bubble = {
   id: number;
@@ -42,15 +42,19 @@ export function Footer() {
     },
   ];
 
-  const [bubbles, setBubbles] = useState<Bubble[]>(() => 
-    Array.from({ length: 5 }).map((_, i) => ({
-      id: i,
-      width: Math.random() * 200 + 100,
-      height: Math.random() * 200 + 100,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-    }))
-  );
+  const [bubbles, setBubbles] = useState<Bubble[]>([]);
+
+  useEffect(() => {
+    setBubbles(
+      Array.from({ length: 5 }).map((_, i) => ({
+        id: i,
+        width: Math.random() * 200 + 100,
+        height: Math.random() * 200 + 100,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+      }))
+    );
+  }, []);
 
   return (
     <footer

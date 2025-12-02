@@ -393,7 +393,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                   {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
                   {formData.thumbnail && !isUploading && (
                     <div className="mt-4 relative w-full max-w-xs h-48">
-                      <Image src={formData.thumbnail} alt="Preview" fill className="rounded-lg object-cover" />
+                      <Image src={formData.thumbnail} alt="Preview" fill sizes="100px" className="rounded-lg object-cover" />
                     </div>
                   )}
                 </div>

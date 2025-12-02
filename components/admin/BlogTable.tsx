@@ -352,7 +352,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                   {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
                   {formData.image && !isUploading && (
                     <div className="mt-4 relative w-full max-w-xs h-48">
-                      <Image src={formData.image} alt="Preview" fill className="rounded-lg object-cover" />
+                      <Image src={formData.image} alt="Preview" fill sizes="100px" className="rounded-lg object-cover" />
                     </div>
                   )}
                 </div>

@@ -45,5 +45,7 @@ next-env.d.ts
 /lib/generated/prisma
 GEMINI.md
 WARP.md
+
 # Assets
 public/uploads/
+errors.txt

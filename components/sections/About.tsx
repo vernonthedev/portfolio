@@ -150,6 +150,7 @@ export function About({ aboutData }: { aboutData: AboutData }) {
                     src={image || "/images/me/ait.png"}
                     alt="vernonthedev"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                     className="object-cover"
                   />
                   <div

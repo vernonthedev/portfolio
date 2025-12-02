@@ -41,7 +41,7 @@ export function HomePageClient({
   heroData: HeroData;
 }) {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
       <Hero heroData={heroData} />
       <Skills skills={skills} />
       <Projects projects={projects} />
