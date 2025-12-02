@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 interface Project {
   id: string;
+  slug: string;
   name: string;
   description: string;
   htmlUrl?: string | null;
@@ -27,8 +28,10 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<Project | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [isUploading, setIsUploading] = useState(false);
 
   const [formData, setFormData] = useState({
+    slug: "",
     name: "",
     description: "",
     htmlUrl: "",
@@ -41,6 +44,46 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
     thumbnail: "",
     category: "",
   });
+
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.value;
+    const slug = slugify(name);
+    setFormData({ ...formData, name, slug });
+  };
+  
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const body = new FormData();
+    body.append("file", file);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body,
+      });
+      const data = await response.json();
+      if (data.success) {
+        setFormData((prev) => ({ ...prev, thumbnail: data.url }));
+      } else {
+        console.error("Image upload failed:", data.error);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +112,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
   const handleEdit = (project: Project) => {
     setEditing(project);
     setFormData({
+      slug: project.slug,
       name: project.name,
       description: project.description,
       htmlUrl: project.htmlUrl || "",
@@ -109,6 +153,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
             onClick={() => {
               setEditing(null);
               setFormData({
+                slug: "",
                 name: "",
                 description: "",
                 htmlUrl: "",
@@ -227,7 +272,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={handleNameChange}
                       className="w-full px-4 py-2 rounded-xl border"
                       style={{
                         borderColor: "var(--border-subtle)",
@@ -239,25 +284,20 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                   </div>
                   <div>
                     <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
-                      Category
+                      Slug
                     </label>
-                    <select
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    <input
+                      type="text"
+                      value={formData.slug}
+                      readOnly
                       className="w-full px-4 py-2 rounded-xl border"
                       style={{
                         borderColor: "var(--border-subtle)",
                         backgroundColor: "var(--bg)",
                         color: "var(--base)",
                       }}
-                    >
-                      <option value="">Select category</option>
-                      <option value="web">Web</option>
-                      <option value="mobile">Mobile</option>
-                      <option value="backend">Backend</option>
-                      <option value="fullstack">Full Stack</option>
-                      <option value="desktop">Desktop</option>
-                    </select>
+                      required
+                    />
                   </div>
                 </div>
 
@@ -282,6 +322,28 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+                      Category
+                    </label>
+                    <select
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      className="w-full px-4 py-2 rounded-xl border"
+                      style={{
+                        borderColor: "var(--border-subtle)",
+                        backgroundColor: "var(--bg)",
+                        color: "var(--base)",
+                      }}
+                    >
+                      <option value="">Select category</option>
+                      <option value="web">Web</option>
+                      <option value="mobile">Mobile</option>
+                      <option value="backend">Backend</option>
+                      <option value="fullstack">Full Stack</option>
+                      <option value="desktop">Desktop</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
                       GitHub URL
                     </label>
                     <input
@@ -296,22 +358,43 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                       }}
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
-                      Homepage URL
-                    </label>
-                    <input
-                      type="url"
-                      value={formData.homepage}
-                      onChange={(e) => setFormData({ ...formData, homepage: e.target.value })}
-                      className="w-full px-4 py-2 rounded-xl border"
-                      style={{
-                        borderColor: "var(--border-subtle)",
-                        backgroundColor: "var(--bg)",
-                        color: "var(--base)",
-                      }}
-                    />
-                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+                    Homepage URL
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.homepage}
+                    onChange={(e) => setFormData({ ...formData, homepage: e.target.value })}
+                    className="w-full px-4 py-2 rounded-xl border"
+                    style={{
+                      borderColor: "var(--border-subtle)",
+                      backgroundColor: "var(--bg)",
+                      color: "var(--base)",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+                    Project Thumbnail
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUploading}
+                    className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                    style={{ color: "var(--grey)" }}
+                  />
+                  {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
+                  {formData.thumbnail && !isUploading && (
+                    <div className="mt-4">
+                      <img src={formData.thumbnail} alt="Preview" className="rounded-lg max-w-xs max-h-48 object-cover" />
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -330,7 +413,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                 <div className="flex gap-3">
                   <motion.button
                     type="submit"
-                    disabled={isPending}
+                    disabled={isPending || isUploading}
                     className="flex-1 py-3 rounded-xl font-semibold"
                     style={{
                       background: "linear-gradient(135deg, var(--orange), var(--purple))",
@@ -339,7 +422,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {isPending ? "Saving..." : editing ? "Update" : "Create"}
+                    {isPending ? "Saving..." : isUploading ? "Uploading..." : editing ? "Update" : "Create"}
                   </motion.button>
                   <motion.button
                     type="button"
@@ -364,4 +447,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
     </>
   );
 }
+
+
+
 

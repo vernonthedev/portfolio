@@ -23,6 +23,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<BlogPost | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [isUploading, setIsUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     slug: "",
@@ -34,6 +35,46 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
     featured: false,
     image: "",
   });
+
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    const slug = slugify(title);
+    setFormData({ ...formData, title, slug });
+  };
+  
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const body = new FormData();
+    body.append("file", file);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body,
+      });
+      const data = await response.json();
+      if (data.success) {
+        setFormData((prev) => ({ ...prev, image: data.url }));
+      } else {
+        console.error("Image upload failed:", data.error);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -212,7 +253,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                     <input
                       type="text"
                       value={formData.slug}
-                      onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                      readOnly
                       className="w-full px-4 py-2 rounded-xl border"
                       style={{
                         borderColor: "var(--border-subtle)",
@@ -248,7 +289,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                   <input
                     type="text"
                     value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    onChange={handleTitleChange}
                     className="w-full px-4 py-2 rounded-xl border"
                     style={{
                       borderColor: "var(--border-subtle)",
@@ -295,6 +336,26 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                   />
                 </div>
 
+                <div>
+                  <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
+                    Featured Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={isUploading}
+                    className="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                    style={{ color: "var(--grey)" }}
+                  />
+                  {isUploading && <p className="text-sm mt-2" style={{ color: "var(--orange)" }}>Uploading...</p>}
+                  {formData.image && !isUploading && (
+                    <div className="mt-4">
+                      <img src={formData.image} alt="Preview" className="rounded-lg max-w-xs max-h-48 object-cover" />
+                    </div>
+                  )}
+                </div>
+
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -311,7 +372,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                 <div className="flex gap-3">
                   <motion.button
                     type="submit"
-                    disabled={isPending}
+                    disabled={isPending || isUploading}
                     className="flex-1 py-3 rounded-xl font-semibold"
                     style={{
                       background: "linear-gradient(135deg, var(--orange), var(--purple))",
@@ -320,7 +381,7 @@ export function BlogTable({ initialPosts }: { initialPosts: BlogPost[] }) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {isPending ? "Saving..." : editing ? "Update" : "Create"}
+                    {isPending ? "Saving..." : isUploading ? "Uploading..." : editing ? "Update" : "Create"}
                   </motion.button>
                   <motion.button
                     type="button"

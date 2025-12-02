@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const projectSchema = z.object({
+  slug: z.string().min(1),
   name: z.string().min(1),
   description: z.string(),
   htmlUrl: z.string().url().optional(),

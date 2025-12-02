@@ -51,6 +51,7 @@ model Skill {
 
 model Project {
   id             String    @id @default(cuid())
+  slug           String    @unique
   name           String
   description    String    @db.Text
   htmlUrl        String?   @map("html_url")
