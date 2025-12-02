@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/vernonthedev/portfolio/compare/v1.0.1...v1.0.2) (2025-12-02)
+
+
+### Bug Fixes
+
+* added the backend data integrations, fixes [#14](https://github.com/vernonthedev/portfolio/issues/14) ([03e3acd](https://github.com/vernonthedev/portfolio/commit/03e3acdaf0026617d6b9d717d711d6c260d90214))
+
 ## [1.0.1](https://github.com/vernonthedev/portfolio/compare/v1.0.0...v1.0.1) (2025-12-02)
 
 
