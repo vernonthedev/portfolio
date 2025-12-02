@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/vernonthedev/portfolio/compare/v1.0.0...v1.0.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* added dev img, fixes [#13](https://github.com/vernonthedev/portfolio/issues/13) ([0efe878](https://github.com/vernonthedev/portfolio/commit/0efe87897ad69561c2d128fa5f19627b5618690a))
+
 # 1.0.0 (2025-12-02)
 
 
