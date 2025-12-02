@@ -1,13 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Youtube, Coffee, Rocket, User, Zap, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Code,
+  Youtube,
+  Coffee,
+  Rocket,
+  User,
+  Zap,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import Image from "next/image";
 
 const stats = [
   { icon: Code, label: "Projects Built", value: "50+", color: "var(--orange)" },
-  { icon: Youtube, label: "YouTube Videos", value: "100+", color: "var(--purple)" },
-  { icon: Rocket, label: "Years Experience", value: "5+", color: "var(--orange)" },
+  {
+    icon: Youtube,
+    label: "YouTube Videos",
+    value: "100+",
+    color: "var(--purple)",
+  },
+  {
+    icon: Rocket,
+    label: "Years Experience",
+    value: "5+",
+    color: "var(--orange)",
+  },
   { icon: Zap, label: "Happy Clients", value: "30+", color: "var(--purple)" },
 ];
 
@@ -34,7 +53,8 @@ export function About() {
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="font-youth text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight"
+        <div
+          className="font-youth text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -63,17 +83,27 @@ export function About() {
             <motion.div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                background:
+                  "linear-gradient(135deg, var(--orange), var(--purple))",
               }}
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-sm font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+              <span
+                className="text-sm font-youth font-bold"
+                style={{ color: "var(--bg)" }}
+              >
+                VD
+              </span>
             </motion.div>
             <User className="w-5 h-5" style={{ color: "var(--orange)" }} />
-            <span className="text-base font-semibold" style={{ color: "var(--grey)" }}>
+            <span
+              className="text-base font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Get to Know Me
             </span>
-            <span className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
+            <span
+              className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
               style={{
                 backgroundColor: "var(--orange)20",
                 color: "var(--orange)",
@@ -113,7 +143,8 @@ export function About() {
             className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed"
             style={{ color: "var(--grey)" }}
           >
-            I&apos;m a full-stack developer passionate about building digital experiences that make a real impact.
+            I&apos;m a full-stack developer passionate about building digital
+            experiences that make a real impact.
           </motion.p>
         </motion.div>
 
@@ -129,7 +160,7 @@ export function About() {
               <div className="relative rounded-[2.5em] overflow-hidden group">
                 <div className="aspect-[3/4] relative bg-base/5">
                   <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&q=80"
+                    src="/images/me/ait.png"
                     alt="vernonthedev"
                     fill
                     className="object-cover"
@@ -137,17 +168,20 @@ export function About() {
                   <div
                     className="absolute inset-0 bg-gradient-to-br opacity-30 group-hover:opacity-10 transition-opacity"
                     style={{
-                      background: "linear-gradient(135deg, var(--purple), var(--orange))",
+                      background:
+                        "linear-gradient(135deg, var(--purple), var(--orange))",
                     }}
                   />
-                  <div className="absolute inset-0 border-4 rounded-[2.5em] pointer-events-none"
+                  <div
+                    className="absolute inset-0 border-4 rounded-[2.5em] pointer-events-none"
                     style={{ borderColor: "var(--orange)" }}
                   />
                 </div>
                 <motion.div
                   className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full blur-3xl opacity-30"
                   style={{
-                    background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                    background:
+                      "linear-gradient(135deg, var(--orange), var(--purple))",
                   }}
                   animate={{
                     scale: [1, 1.3, 1],
@@ -187,12 +221,21 @@ export function About() {
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.6 }}
                         >
-                          <Icon className="w-6 h-6" style={{ color: stat.color }} />
+                          <Icon
+                            className="w-6 h-6"
+                            style={{ color: stat.color }}
+                          />
                         </motion.div>
-                        <h4 className="text-3xl font-youth font-bold mb-1" style={{ color: "var(--base)" }}>
+                        <h4
+                          className="text-3xl font-youth font-bold mb-1"
+                          style={{ color: "var(--base)" }}
+                        >
                           {stat.value}
                         </h4>
-                        <p className="text-xs font-semibold" style={{ color: "var(--grey)" }}>
+                        <p
+                          className="text-xs font-semibold"
+                          style={{ color: "var(--grey)" }}
+                        >
                           {stat.label}
                         </p>
                       </div>
@@ -222,25 +265,33 @@ export function About() {
                   <motion.div
                     className="w-20 h-20 rounded-3xl flex items-center justify-center relative overflow-hidden"
                     style={{
-                      background: "linear-gradient(135deg, var(--purple), var(--orange))",
+                      background:
+                        "linear-gradient(135deg, var(--purple), var(--orange))",
                     }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <span className="text-3xl font-youth font-bold relative z-10" style={{ color: "var(--bg)" }}>
+                    <span
+                      className="text-3xl font-youth font-bold relative z-10"
+                      style={{ color: "var(--bg)" }}
+                    >
                       VD
                     </span>
                     <div className="absolute inset-0 bg-white/10" />
                   </motion.div>
                   <div>
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-3xl font-youth font-bold" style={{ color: "var(--base)" }}>
+                      <h3
+                        className="text-3xl font-youth font-bold"
+                        style={{ color: "var(--base)" }}
+                      >
                         vernonthedev
                       </h3>
                       <motion.div
                         className="px-3 py-1 rounded-lg text-xs font-youth font-bold uppercase tracking-wide"
                         style={{
-                          background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                          background:
+                            "linear-gradient(135deg, var(--orange), var(--purple))",
                           color: "var(--bg)",
                         }}
                         whileHover={{ scale: 1.05 }}
@@ -248,26 +299,40 @@ export function About() {
                         Brand
                       </motion.div>
                     </div>
-                    <p className="text-lg" style={{ color: "var(--grey)" }}>Full-Stack Developer</p>
+                    <p className="text-lg" style={{ color: "var(--grey)" }}>
+                      Full-Stack Developer
+                    </p>
                   </div>
                 </div>
 
-                <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--base)" }}>
-                  My journey in software development started with curiosity and evolved into a passion for creating elegant, efficient, and user-friendly applications.
+                <p
+                  className="text-lg leading-relaxed mb-6"
+                  style={{ color: "var(--base)" }}
+                >
+                  My journey in software development started with curiosity and
+                  evolved into a passion for creating elegant, efficient, and
+                  user-friendly applications.
                 </p>
 
-                <p className="text-base leading-relaxed mb-6" style={{ color: "var(--grey)" }}>
-                  I specialize in Laravel for robust backend systems, Flutter for beautiful
-                  mobile experiences, and modern JavaScript frameworks for dynamic web
-                  applications. When I&apos;m not coding, you&apos;ll find me sharing my
-                  knowledge on YouTube, contributing to open-source projects, or exploring
-                  the latest tech trends.
+                <p
+                  className="text-base leading-relaxed mb-6"
+                  style={{ color: "var(--grey)" }}
+                >
+                  I specialize in Laravel for robust backend systems, Flutter
+                  for beautiful mobile experiences, and modern JavaScript
+                  frameworks for dynamic web applications. When I&apos;m not
+                  coding, you&apos;ll find me sharing my knowledge on YouTube,
+                  contributing to open-source projects, or exploring the latest
+                  tech trends.
                 </p>
 
-                <p className="text-base leading-relaxed" style={{ color: "var(--grey)" }}>
-                  I believe in building in public, sharing my journey, and helping others
-                  grow. Every project is an opportunity to learn something new and push the
-                  boundaries of what&apos;s possible.
+                <p
+                  className="text-base leading-relaxed"
+                  style={{ color: "var(--grey)" }}
+                >
+                  I believe in building in public, sharing my journey, and
+                  helping others grow. Every project is an opportunity to learn
+                  something new and push the boundaries of what&apos;s possible.
                 </p>
               </div>
             </div>
@@ -284,13 +349,17 @@ export function About() {
                   <motion.div
                     className="p-4 rounded-2xl"
                     style={{
-                      background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                      background:
+                        "linear-gradient(135deg, var(--orange), var(--purple))",
                     }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
                     <Rocket className="w-7 h-7 text-white" />
                   </motion.div>
-                  <h3 className="text-3xl font-youth font-bold" style={{ color: "var(--base)" }}>
+                  <h3
+                    className="text-3xl font-youth font-bold"
+                    style={{ color: "var(--base)" }}
+                  >
                     What I Do
                   </h3>
                 </div>
@@ -316,7 +385,8 @@ export function About() {
                           e.currentTarget.style.backgroundColor = "var(--bg-d)";
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = "var(--border-subtle)";
+                          e.currentTarget.style.borderColor =
+                            "var(--border-subtle)";
                           e.currentTarget.style.backgroundColor = "var(--bg)";
                         }}
                       >
@@ -325,7 +395,10 @@ export function About() {
                           whileHover={{ scale: 1.2, rotate: 90 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
-                          <ArrowRight className="w-5 h-5" style={{ color: "var(--orange)" }} />
+                          <ArrowRight
+                            className="w-5 h-5"
+                            style={{ color: "var(--orange)" }}
+                          />
                         </motion.div>
                         <span
                           className="text-lg leading-relaxed font-semibold flex-1"
