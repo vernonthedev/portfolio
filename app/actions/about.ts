@@ -5,11 +5,17 @@ import { requireAdmin } from "@/lib/auth";
 import { createAuditLog } from "@/lib/audit";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { AboutData } from "@/types";
 
 const aboutSchema = z.object({
   bio: z.string(),
   services: z.array(z.string()),
-  stats: z.record(z.any()),
+  stats: z.array(z.object({
+    icon: z.string(),
+    label: z.string(),
+    value: z.string(),
+    color: z.string(),
+  })),
   image: z.string().optional(),
 });
 
@@ -40,7 +46,12 @@ export async function getAbout() {
       image: null,
     },
   });
-  return about;
+
+  // Explicitly cast stats to the correct type
+  return {
+    ...about,
+    stats: about.stats as AboutData['stats'],
+  };
 }
 
 export async function updateAbout(data: z.infer<typeof aboutSchema>) {

@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import type { Prisma } from "@prisma/client";
 import { headers } from "next/headers";
 
 export async function createAuditLog(
@@ -6,7 +7,7 @@ export async function createAuditLog(
   action: string,
   entityType: string,
   entityId?: string,
-  metadata?: Record<string, unknown>
+  metadata?: Prisma.InputJsonValue
 ) {
   try {
     const headersList = await headers();
@@ -19,7 +20,7 @@ export async function createAuditLog(
         action,
         entityType,
         entityId,
-        metadata: metadata || {},
+        metadata: metadata ?? undefined,
         userAgent,
         ipAddress,
       },

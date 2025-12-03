@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import type { Prisma } from "@prisma/client";
 import { headers } from "next/headers";
 
 function parseUserAgent(userAgent: string | null) {
@@ -34,7 +35,7 @@ export async function trackEvent(
   type: string,
   entityId?: string,
   entityType?: string,
-  metadata?: Record<string, unknown>
+  metadata?: Prisma.InputJsonValue
 ) {
   try {
     const headersList = await headers();
@@ -47,7 +48,7 @@ export async function trackEvent(
         type,
         entityId,
         entityType,
-        metadata: metadata || {},
+        metadata: metadata ?? undefined,
         userAgent: userAgent || undefined,
         ipAddress,
         device,

@@ -80,9 +80,12 @@ Always prioritize security:
 
 Mastering these advanced Laravel techniques will significantly improve your development workflow and application performance. Stay curious, keep learning, and build amazing things!
     `,
-    date: "2024-01-15",
+    date: new Date("2024-01-15"),
     category: "Laravel Tips",
     featured: true,
+    id: "laravel-tips-2024",
+    createdAt: new Date("2024-01-15"),
+    updatedAt: new Date("2024-01-15"),
   },
   {
     slug: "flutter-state-management",
@@ -150,9 +153,12 @@ For complex applications, the BLoC pattern provides:
 
 The right state management solution depends on your project's complexity and team preferences. Start simple and scale as needed.
     `,
-    date: "2024-01-10",
+    date: new Date("2024-01-10"),
     category: "Flutter Dev",
     featured: true,
+    id: "flutter-state-management",
+    createdAt: new Date("2024-01-10"),
+    updatedAt: new Date("2024-01-10"),
   },
   {
     slug: "pwa-best-practices",
@@ -226,9 +232,12 @@ Engage users with push notifications:
 
 PWAs represent the future of web applications. By implementing these best practices, you can create experiences that rival native apps.
     `,
-    date: "2024-01-05",
+    date: new Date("2024-01-05"),
     category: "PWA Development",
     featured: false,
+    id: "pwa-best-practices",
+    createdAt: new Date("2024-01-05"),
+    updatedAt: new Date("2024-01-05"),
   },
   {
     slug: "docker-ci-cd",
@@ -291,9 +300,12 @@ jobs:
 
 Docker and CI/CD transform development workflows, enabling faster, more reliable deployments.
     `,
-    date: "2023-12-20",
+    date: new Date("2023-12-20"),
     category: "DevOps & CI/CD",
     featured: false,
+    id: "docker-ci-cd",
+    createdAt: new Date("2023-12-20"),
+    updatedAt: new Date("2023-12-20"),
   },
   {
     slug: "building-in-public",
@@ -349,9 +361,12 @@ Balancing building and sharing:
 
 Building in public isn't for everyone, but if you're considering it, start small and stay consistent. The community you build will be invaluable.
     `,
-    date: "2023-12-15",
+    date: new Date("2023-12-15"),
     category: "Personal",
     featured: false,
+    id: "building-in-public",
+    createdAt: new Date("2023-12-15"),
+    updatedAt: new Date("2023-12-15"),
   },
 ];
 

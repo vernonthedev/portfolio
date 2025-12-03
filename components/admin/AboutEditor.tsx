@@ -5,14 +5,7 @@ import { motion } from "framer-motion";
 import { Save } from "lucide-react";
 import { updateAbout } from "@/app/actions/about";
 import { useRouter } from "next/navigation";
-
-interface AboutData {
-  id: string;
-  bio: string;
-  services: string[];
-  stats: Record<string, unknown>;
-  image?: string | null;
-}
+import { AboutData } from "@/types";
 
 export function AboutEditor({
   initialData,

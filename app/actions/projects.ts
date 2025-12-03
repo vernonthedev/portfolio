@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/auth";
 import { createAuditLog } from "@/lib/audit";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { Project } from "@/types";
 
 const projectSchema = z.object({
   slug: z.string().min(1),
@@ -18,7 +19,7 @@ const projectSchema = z.object({
   forksCount: z.number().default(0),
   featured: z.boolean().default(false),
   thumbnail: z.string().optional(),
-  category: z.string().optional(),
+  category: z.enum(["web", "mobile", "backend", "fullstack", "desktop"]).optional(),
 });
 
 export async function createProject(data: z.infer<typeof projectSchema>) {
@@ -65,8 +66,13 @@ export async function deleteProject(id: string) {
 }
 
 export async function getProjects() {
-  return prisma.project.findMany({
+  const projects = await prisma.project.findMany({
     orderBy: { createdAt: "desc" },
   });
+
+  return projects.map(project => ({
+    ...project,
+    category: project.category as Project['category'],
+  }));
 }
 

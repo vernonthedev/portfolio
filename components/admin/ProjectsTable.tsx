@@ -6,22 +6,7 @@ import { Plus, Edit, Trash2, X } from "lucide-react";
 import { createProject, updateProject, deleteProject } from "@/app/actions/projects";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-interface Project {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  htmlUrl?: string | null;
-  homepage?: string | null;
-  language?: string | null;
-  topics: string[];
-  stargazersCount: number;
-  forksCount: number;
-  featured: boolean;
-  thumbnail?: string | null;
-  category?: string | null;
-}
+import { Project } from "@/types";
 
 export function ProjectsTable({ initialProjects }: { initialProjects: Project[] }) {
   const router = useRouter();
@@ -31,7 +16,20 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
   const [isPending, startTransition] = useTransition();
   const [isUploading, setIsUploading] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    slug: string;
+    name: string;
+    description: string;
+    htmlUrl: string;
+    homepage: string;
+    language: string;
+    topics: string;
+    stargazersCount: number;
+    forksCount: number;
+    featured: boolean;
+    thumbnail: string;
+    category: NonNullable<Project["category"]> | "";
+  }>({
     slug: "",
     name: "",
     description: "",
@@ -91,10 +89,18 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
     startTransition(async () => {
       try {
         const data = {
-          ...formData,
+          slug: formData.slug,
+          name: formData.name,
+          description: formData.description,
+          htmlUrl: formData.htmlUrl || undefined,
+          homepage: formData.homepage || undefined,
+          language: formData.language || undefined,
           topics: formData.topics.split(",").map((t) => t.trim()).filter(Boolean),
           stargazersCount: parseInt(String(formData.stargazersCount)) || 0,
           forksCount: parseInt(String(formData.forksCount)) || 0,
+          featured: formData.featured,
+          thumbnail: formData.thumbnail || undefined,
+          category: formData.category || undefined,
         };
         if (editing) {
           await updateProject(editing.id, data);
@@ -122,7 +128,7 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
       topics: project.topics.join(", "),
       stargazersCount: project.stargazersCount,
       forksCount: project.forksCount,
-      featured: project.featured,
+      featured: project.featured ?? false,
       thumbnail: project.thumbnail || "",
       category: project.category || "",
     });
@@ -327,7 +333,12 @@ export function ProjectsTable({ initialProjects }: { initialProjects: Project[] 
                     </label>
                     <select
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          category: e.target.value as NonNullable<Project["category"]> | "",
+                        })
+                      }
                       className="w-full px-4 py-2 rounded-xl border"
                       style={{
                         borderColor: "var(--border-subtle)",

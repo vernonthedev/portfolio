@@ -125,10 +125,9 @@ export default function ProjectDetailPage() {
                   <h1 className="text-5xl md:text-7xl font-youth font-bold mb-2" style={{ color: "var(--base)" }}>
                     {project.name}
                   </h1>
-                  <p className="text-xl" style={{ color: "var(--grey)" }}>
-                    {project.category.charAt(0).toUpperCase() + project.category.slice(1)} Project
-                  </p>
-                </div>
+                                     <p className="text-xl" style={{ color: "var(--grey)" }}>
+                                      {project.category ? project.category.charAt(0).toUpperCase() + project.category.slice(1) : ""} Project
+                                    </p>                </div>
               </div>
 
               <p className="text-2xl leading-relaxed max-w-4xl" style={{ color: "var(--grey)" }}>
@@ -230,7 +229,7 @@ export default function ProjectDetailPage() {
                         <span style={{ color: "var(--base)" }}>Stars</span>
                       </div>
                       <span className="text-xl font-bold" style={{ color: "var(--base)" }}>
-                        {project.stargazers_count || 0}
+                        {project.stargazersCount || 0}
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-4 rounded-2xl"
@@ -241,7 +240,7 @@ export default function ProjectDetailPage() {
                         <span style={{ color: "var(--base)" }}>Forks</span>
                       </div>
                       <span className="text-xl font-bold" style={{ color: "var(--base)" }}>
-                        {project.forks_count || 0}
+                        {project.forksCount || 0}
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-4 rounded-2xl"
@@ -252,28 +251,30 @@ export default function ProjectDetailPage() {
                         <span style={{ color: "var(--base)" }}>Updated</span>
                       </div>
                       <span className="text-sm font-semibold" style={{ color: "var(--grey)" }}>
-                        {formatDate(project.updated_at)}
+                        {formatDate(project.updatedAt)}
                       </span>
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <motion.a
-                    href={project.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full px-6 py-4 rounded-2xl font-youth font-bold text-center uppercase tracking-tight flex items-center justify-center gap-3"
-                    style={{
-                      background: "linear-gradient(135deg, var(--orange), var(--purple))",
-                      color: "var(--bg)",
-                    }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Github className="w-6 h-6" />
-                    View on GitHub
-                  </motion.a>
+                  {project.htmlUrl && (
+                    <motion.a
+                      href={project.htmlUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full px-6 py-4 rounded-2xl font-youth font-bold text-center uppercase tracking-tight flex items-center justify-center gap-3"
+                      style={{
+                        background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                        color: "var(--bg)",
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Github className="w-6 h-6" />
+                      View on GitHub
+                    </motion.a>
+                  )}
                   {project.homepage && (
                     <motion.a
                       href={project.homepage}

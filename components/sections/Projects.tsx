@@ -273,7 +273,7 @@ export function Projects({ projects: initialProjects }: { projects: Project[] })
                               onClick={(e) => {
                                 e.stopPropagation();
                                 window.open(
-                                  project.htmlUrl,
+                                  project.htmlUrl as string,
                                   "_blank",
                                   "noopener,noreferrer"
                                 );
@@ -294,7 +294,7 @@ export function Projects({ projects: initialProjects }: { projects: Project[] })
                               onClick={(e) => {
                                 e.stopPropagation();
                                 window.open(
-                                  project.homepage,
+                                  project.homepage as string,
                                   "_blank",
                                   "noopener,noreferrer"
                                 );

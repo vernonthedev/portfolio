@@ -193,7 +193,6 @@ export function Contact() {
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "var(--orange)";
-                      e.target.style.ringColor = "var(--orange)";
                     }}
                     onBlur={(e) => {
                       e.target.style.borderColor = errors.name ? "var(--red)" : "var(--border-subtle)";
@@ -238,7 +237,6 @@ export function Contact() {
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "var(--orange)";
-                      e.target.style.ringColor = "var(--orange)";
                     }}
                     onBlur={(e) => {
                       e.target.style.borderColor = errors.email ? "var(--red)" : "var(--border-subtle)";
@@ -284,7 +282,6 @@ export function Contact() {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--orange)";
-                    e.target.style.ringColor = "var(--orange)";
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = errors.phone ? "var(--red)" : "var(--border-subtle)";
@@ -329,7 +326,6 @@ export function Contact() {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--orange)";
-                    e.target.style.ringColor = "var(--orange)";
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = errors.message ? "var(--red)" : "var(--border-subtle)";

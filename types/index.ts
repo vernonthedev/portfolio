@@ -12,6 +12,7 @@ export interface Project {
   featured?: boolean;
   thumbnail?: string | null;
   category?: "web" | "mobile" | "backend" | "fullstack" | "desktop" | null;
+  updatedAt: Date;
 }
 
 export interface BlogPost {

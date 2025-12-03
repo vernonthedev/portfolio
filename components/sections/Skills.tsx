@@ -44,7 +44,7 @@ const CircularProgress = ({
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (skill.level / 100) * circumference;
-  const color = categoryColors[skill.category] || "var(--orange)";
+  const color = categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)";
 
   return (
     <motion.div
@@ -260,7 +260,7 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
             All Skills
           </motion.button>
           {categories.map((category) => {
-            const Icon = categoryIcons[category];
+            const Icon = categoryIcons[category as keyof typeof categoryIcons] || Wrench;
             return (
               <motion.button
                 key={category}
@@ -271,7 +271,7 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
                 style={
                   validSelectedCategory === category
                     ? {
-                        background: `linear-gradient(135deg, ${categoryColors[category]}, var(--purple))`,
+                        background: `linear-gradient(135deg, ${categoryColors[category as keyof typeof categoryColors]}, var(--purple))`,
                         color: "var(--bg)",
                       }
                     : {
@@ -390,8 +390,8 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-3 rounded-full border backdrop-blur-sm"
                 style={{
-                  borderColor: categoryColors[skill.category] + "40",
-                  backgroundColor: categoryColors[skill.category] + "10",
+                  borderColor: (categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)") + "40",
+                  backgroundColor: (categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)") + "10",
                 }}
               >
                 <span
