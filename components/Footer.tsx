@@ -61,7 +61,7 @@ export function Footer() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden py-16"
       style={{ backgroundColor: "var(--base)", color: "var(--bg)" }}
     >
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10" data-testid="bubble-container">
         {bubbles.map((bubble) => (
           <motion.div
             key={bubble.id}

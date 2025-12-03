@@ -54,7 +54,7 @@ export function Navigation() {
         </div>
       </header>
 
-      <nav className="hidden md:flex fixed left-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-2 pointer-events-auto">
+      <nav className="hidden md:flex fixed left-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-2 pointer-events-auto" data-testid="desktop-nav">
         {navItems.map((item) => {
           const isActive = activeSection === item.name.toLowerCase();
           return (
@@ -96,6 +96,7 @@ export function Navigation() {
       <nav
         className="md:hidden fixed bottom-2 left-1/2 -translate-x-1/2 z-50 flex items-center gap-0 pointer-events-auto backdrop-blur-3xl rounded-xl px-3"
         style={{ backgroundColor: "var(--base)" }}
+        data-testid="mobile-nav"
       >
         {navItems.map((item) => {
           const isActive = activeSection === item.name.toLowerCase();
