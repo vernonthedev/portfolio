@@ -8,7 +8,10 @@ export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 12);
 }
 
-export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
+export async function verifyPassword(
+  password: string,
+  hashedPassword: string
+): Promise<boolean> {
   return bcrypt.compare(password, hashedPassword);
 }
 
@@ -27,7 +30,10 @@ export async function createSession(userId: string): Promise<string> {
   return token;
 }
 
-export async function getSession(): Promise<{ userId: string; user: { id: string; username: string; role: string } } | null> {
+export async function getSession(): Promise<{
+  userId: string;
+  user: { id: string; username: string; role: string };
+} | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token")?.value;
 
@@ -77,10 +83,19 @@ export async function login(username: string, password: string) {
 
   const sessionToken = await createSession(user.id);
   const cookieStore = await cookies();
+
+  // cookieStore.set("session_token", sessionToken, {
+  //   httpOnly: true,
+  //   secure: process.env.NODE_ENV === "production",
+  //   sameSite: "lax",
+  //   maxAge: SESSION_DURATION / 1000,
+  //   path: "/",
+  // });
+
   cookieStore.set("session_token", sessionToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
     maxAge: SESSION_DURATION / 1000,
     path: "/",
   });
@@ -121,4 +136,3 @@ export async function requireAdmin() {
   }
   return session;
 }
-

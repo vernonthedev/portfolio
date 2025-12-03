@@ -14,7 +14,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:seed": "curl -X POST http://localhost:3000/api/seed || echo 'Start dev server first: npm run dev'"
+    "db:seed": "curl -X POST  https://vernonthedev.onrender.com/api/seed || echo 'Start prod server first: npm run start'"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
