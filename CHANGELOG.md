@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.2.0](https://github.com/vernonthedev/portfolio/compare/v1.1.0...v1.2.0) (2025-12-03)
+
+
+### Features
+
+* fixed the npm run builds, fixes [#19](https://github.com/vernonthedev/portfolio/issues/19) ([9a2c2ed](https://github.com/vernonthedev/portfolio/commit/9a2c2ed85f73176943e0f2d434241eb301a37a17))
+
 # [1.1.0](https://github.com/vernonthedev/portfolio/compare/v1.0.2...v1.1.0) (2025-12-02)
 
 
