@@ -17,10 +17,7 @@ RUN npm run build
 # Production Run
 FROM node:22-alpine AS runner
 WORKDIR /app
-RUN addgroup --system --gid 1000 nodejs && \
-    adduser --system --uid 1000 nextjs
-
-USER nextjs
+USER node
 
 # Get only the necessary files for running the app in standalone mode
 COPY --from=builder /app/public ./public
