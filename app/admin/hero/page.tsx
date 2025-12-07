@@ -1,6 +1,8 @@
 import { getHero } from "@/app/actions/hero";
 import { HeroEditor } from "@/components/admin/HeroEditor";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminHeroPage() {
   const hero = await getHero();
 

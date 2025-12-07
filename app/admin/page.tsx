@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { DashboardStats } from "@/components/admin/DashboardStats";
 import { MonthlyVisitsChart } from "@/components/admin/MonthlyVisitsChart";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   const [stats, monthlyVisits, recentLogs] = await Promise.all([
     getAnalyticsStats(30),

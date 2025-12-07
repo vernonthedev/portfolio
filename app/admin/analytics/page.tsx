@@ -2,6 +2,8 @@ import { getAnalyticsStats, getMonthlyVisits } from "@/lib/analytics";
 import { DashboardStats } from "@/components/admin/DashboardStats";
 import { MonthlyVisitsChart } from "@/components/admin/MonthlyVisitsChart";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminAnalyticsPage() {
   const [stats, monthlyVisits] = await Promise.all([
     getAnalyticsStats(30),

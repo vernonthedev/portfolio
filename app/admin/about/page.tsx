@@ -1,6 +1,8 @@
 import { getAbout } from "@/app/actions/about";
 import { AboutEditor } from "@/components/admin/AboutEditor";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminAboutPage() {
   const about = await getAbout();
 

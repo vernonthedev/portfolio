@@ -5,6 +5,8 @@ import { getSkills } from "@/app/actions/skills";
 import { getAbout } from "@/app/actions/about";
 import { getHero } from "@/app/actions/hero";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const projects = await getProjects();
   const posts = await getBlogPosts();

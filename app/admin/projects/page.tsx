@@ -1,6 +1,8 @@
 import { getProjects } from "@/app/actions/projects";
 import { ProjectsTable } from "@/components/admin/ProjectsTable";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminProjectsPage() {
   const projects = await getProjects();
 

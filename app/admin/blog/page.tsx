@@ -1,6 +1,8 @@
 import { getBlogPosts } from "@/app/actions/blog";
 import { BlogTable } from "@/components/admin/BlogTable";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminBlogPage() {
   const posts = await getBlogPosts();
 

@@ -6,6 +6,7 @@ import { createAuditLog } from "@/lib/audit";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { Project } from "@/types";
+import { Prisma } from "@prisma/client";
 
 const projectSchema = z.object({
   slug: z.string().min(1),
@@ -70,7 +71,7 @@ export async function getProjects() {
     orderBy: { createdAt: "desc" },
   });
 
-  return projects.map(project => ({
+  return projects.map((project: Prisma.ProjectGetPayload<{}>) => ({
     ...project,
     category: project.category as Project['category'],
   }));
