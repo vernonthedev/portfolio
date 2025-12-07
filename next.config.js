@@ -2,16 +2,14 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: [
-      'avatars.githubusercontent.com', 
-      'github.com',
-      'images.unsplash.com',
-      'picsum.photos'
-    ],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
       },
       {
         protocol: 'https',

@@ -7,8 +7,7 @@ RUN npm ci
 # Build Stage
 FROM node:22-alpine AS builder
 WORKDIR /app
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/portfolio?schema=public}
+ARG DATABASE_URL=postgresql://postgres:postgres@db:5432/portfolio?schema=public
 COPY --from=dependency /app/node_modules ./node_modules
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
@@ -24,8 +23,13 @@ COPY types ./types
 COPY public ./public
 COPY middleware.ts ./
 COPY .env* ./
-RUN npx prisma generate
-RUN npm run build
+RUN if [ -f .env ]; then \
+    set -a && . .env && set +a; \
+    fi && \
+    export DATABASE_URL=${DATABASE_URL:-$DATABASE_URL} && \
+    echo "DATABASE_URL is set to: $DATABASE_URL" && \
+    npx prisma generate && \
+    npm run build
 
 # Production Run
 FROM node:22-alpine AS runner
