@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "vernonthedev | Full-Stack Developer",
-  description: "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer. Building modern web and mobile applications.",
-  keywords: ["vernonthedev", "Laravel", "Flutter", "Full-Stack", "Developer", "Portfolio"],
+  description:
+    "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer. Building modern web and mobile applications.",
+  keywords: [
+    "vernonthedev",
+    "Laravel",
+    "Flutter",
+    "Full-Stack",
+    "Developer",
+    "Portfolio",
+  ],
   authors: [{ name: "vernonthedev" }],
   creator: "vernonthedev",
   openGraph: {
@@ -13,14 +22,21 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://vernonthedev.com",
     title: "vernonthedev | Full-Stack Developer",
-    description: "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer",
+    description:
+      "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer",
     siteName: "vernonthedev",
   },
   twitter: {
     card: "summary_large_image",
     title: "vernonthedev | Full-Stack Developer",
-    description: "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer",
+    description:
+      "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer",
     creator: "@vernonthedev",
+  },
+  icons: {
+    icon: "/logos/favicon.png",
+    shortcut: "/logos/favicon.png",
+    apple: "/logos/favicon.png",
   },
   robots: {
     index: true,
@@ -66,6 +82,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <SpeedInsights />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -90,9 +107,7 @@ export default async function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

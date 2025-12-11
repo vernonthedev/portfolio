@@ -22,18 +22,24 @@ export function Navigation() {
         <div className="flex items-center justify-between gap-4">
           <motion.a
             href="#home"
-            className="pointer-events-auto rounded-full border-2 p-1"
-            style={{ borderColor: "var(--orange)", backgroundColor: "var(--purple)" }}
+            className="pointer-events-auto rounded-full border-2 p-1 bg-white dark:bg-black overflow-hidden relative"
+            style={{ borderColor: "var(--orange)" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div
-              className="aspect-square rounded-full flex items-center justify-center w-14 h-14"
-              style={{ backgroundColor: "var(--purple)" }}
-            >
-              <span className="text-2xl font-youth font-bold" style={{ color: "var(--bg)" }}>
-                VD
-              </span>
+            <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center">
+              {/* Show white logo in dark mode */}
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              {/* Show black logo in light mode */}
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </div>
           </motion.a>
 
@@ -54,7 +60,10 @@ export function Navigation() {
         </div>
       </header>
 
-      <nav className="hidden md:flex fixed left-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-2 pointer-events-auto" data-testid="desktop-nav">
+      <nav
+        className="hidden md:flex fixed left-2 top-1/2 -translate-y-1/2 z-50 flex-col gap-2 pointer-events-auto"
+        data-testid="desktop-nav"
+      >
         {navItems.map((item) => {
           const isActive = activeSection === item.name.toLowerCase();
           return (
@@ -63,7 +72,9 @@ export function Navigation() {
               href={item.href}
               className="group relative aspect-square w-16 rounded-xl backdrop-blur-3xl flex flex-col items-center justify-center transition-all"
               style={{
-                backgroundColor: isActive ? "var(--purple)" : "rgba(0,0,0,0.04)",
+                backgroundColor: isActive
+                  ? "var(--purple)"
+                  : "rgba(0,0,0,0.04)",
                 color: isActive ? "var(--bg)" : "var(--base)",
               }}
               onClick={() => setActiveSection(item.name.toLowerCase())}
@@ -79,7 +90,9 @@ export function Navigation() {
                 className="absolute left-full ml-2 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap backdrop-blur-3xl px-3 py-2 rounded-md"
                 style={{ backgroundColor: "var(--bg-d)", color: "var(--base)" }}
               >
-                <div className="text-xs font-youth font-bold uppercase">{item.name}</div>
+                <div className="text-xs font-youth font-bold uppercase">
+                  {item.name}
+                </div>
               </div>
 
               {isActive && (
@@ -125,5 +138,3 @@ export function Navigation() {
     </>
   );
 }
-
-
