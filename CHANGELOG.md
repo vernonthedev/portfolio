@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.3.0](https://github.com/vernonthedev/portfolio/compare/v1.2.0...v1.3.0) (2025-12-12)
+
+
+### Features
+
+* implement contact form submission API, persistence, fixes [#20](https://github.com/vernonthedev/portfolio/issues/20) ([aefb398](https://github.com/vernonthedev/portfolio/commit/aefb3982a9f85e8d16ca1a07536d51722ec42b1d))
+
 # [1.2.0](https://github.com/vernonthedev/portfolio/compare/v1.1.0...v1.2.0) (2025-12-03)
 
 
