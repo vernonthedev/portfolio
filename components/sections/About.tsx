@@ -68,19 +68,19 @@ export function About({ aboutData }: { aboutData: AboutData }) {
             }}
           >
             <motion.div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--orange), var(--purple))",
-              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span
-                className="text-sm font-youth font-bold"
-                style={{ color: "var(--bg)" }}
-              >
-                VD
-              </span>
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </motion.div>
             <User className="w-5 h-5" style={{ color: "var(--orange)" }} />
             <span
@@ -252,20 +252,19 @@ export function About({ aboutData }: { aboutData: AboutData }) {
                 <div className="flex items-center gap-6 mb-8">
                   <motion.div
                     className="w-20 h-20 rounded-3xl flex items-center justify-center relative overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, var(--purple), var(--orange))",
-                    }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <span
-                      className="text-3xl font-youth font-bold relative z-10"
-                      style={{ color: "var(--bg)" }}
-                    >
-                      VD
-                    </span>
-                    <div className="absolute inset-0 bg-white/10" />
+                    <img
+                      src="/logos/white.png"
+                      alt="Logo"
+                      className="w-full h-full object-cover hidden dark:block"
+                    />
+                    <img
+                      src="/logos/black.png"
+                      alt="Logo"
+                      className="w-full h-full object-cover block dark:hidden"
+                    />
                   </motion.div>
                   <div>
                     <div className="flex items-center gap-3 mb-2">

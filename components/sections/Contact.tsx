@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, AlertCircle, Mail, User, Phone, MessageSquare } from "lucide-react";
+import {
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Mail,
+  User,
+  Phone,
+  MessageSquare,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -18,7 +26,9 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(
+    null
+  );
 
   const {
     register,
@@ -68,7 +78,8 @@ export function Contact() {
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="font-youth text-8xl md:text-[10rem] lg:text-[14rem] font-bold tracking-tight text-center"
+        <div
+          className="font-youth text-8xl md:text-[10rem] lg:text-[14rem] font-bold tracking-tight text-center"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -95,19 +106,29 @@ export function Contact() {
             }}
           >
             <motion.div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
-              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-sm font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </motion.div>
             <Mail className="w-5 h-5" style={{ color: "var(--orange)" }} />
-            <span className="text-base font-semibold" style={{ color: "var(--grey)" }}>
+            <span
+              className="text-base font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Get In Touch
             </span>
-            <span className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
+            <span
+              className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
               style={{
                 backgroundColor: "var(--orange)20",
                 color: "var(--orange)",
@@ -177,7 +198,10 @@ export function Contact() {
                     }}
                   >
                     <div className="flex items-center gap-2">
-                      <User className="w-4 h-4" style={{ color: "var(--orange)" }} />
+                      <User
+                        className="w-4 h-4"
+                        style={{ color: "var(--orange)" }}
+                      />
                       Name
                     </div>
                   </label>
@@ -188,14 +212,18 @@ export function Contact() {
                     className="w-full px-5 py-4 rounded-2xl border-2 transition-all focus:outline-none focus:ring-2"
                     style={{
                       backgroundColor: "var(--bg)",
-                      borderColor: errors.name ? "var(--red)" : "var(--border-subtle)",
+                      borderColor: errors.name
+                        ? "var(--red)"
+                        : "var(--border-subtle)",
                       color: "var(--base)",
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "var(--orange)";
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = errors.name ? "var(--red)" : "var(--border-subtle)";
+                      e.target.style.borderColor = errors.name
+                        ? "var(--red)"
+                        : "var(--border-subtle)";
                     }}
                     placeholder="John Doe"
                   />
@@ -221,7 +249,10 @@ export function Contact() {
                     }}
                   >
                     <div className="flex items-center gap-2">
-                      <Mail className="w-4 h-4" style={{ color: "var(--orange)" }} />
+                      <Mail
+                        className="w-4 h-4"
+                        style={{ color: "var(--orange)" }}
+                      />
                       Email
                     </div>
                   </label>
@@ -232,14 +263,18 @@ export function Contact() {
                     className="w-full px-5 py-4 rounded-2xl border-2 transition-all focus:outline-none focus:ring-2"
                     style={{
                       backgroundColor: "var(--bg)",
-                      borderColor: errors.email ? "var(--red)" : "var(--border-subtle)",
+                      borderColor: errors.email
+                        ? "var(--red)"
+                        : "var(--border-subtle)",
                       color: "var(--base)",
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "var(--orange)";
                     }}
                     onBlur={(e) => {
-                      e.target.style.borderColor = errors.email ? "var(--red)" : "var(--border-subtle)";
+                      e.target.style.borderColor = errors.email
+                        ? "var(--red)"
+                        : "var(--border-subtle)";
                     }}
                     placeholder="john@example.com"
                   />
@@ -266,7 +301,10 @@ export function Contact() {
                   }}
                 >
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" style={{ color: "var(--orange)" }} />
+                    <Phone
+                      className="w-4 h-4"
+                      style={{ color: "var(--orange)" }}
+                    />
                     Phone Number
                   </div>
                 </label>
@@ -277,14 +315,18 @@ export function Contact() {
                   className="w-full px-5 py-4 rounded-2xl border-2 transition-all focus:outline-none focus:ring-2"
                   style={{
                     backgroundColor: "var(--bg)",
-                    borderColor: errors.phone ? "var(--red)" : "var(--border-subtle)",
+                    borderColor: errors.phone
+                      ? "var(--red)"
+                      : "var(--border-subtle)",
                     color: "var(--base)",
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--orange)";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = errors.phone ? "var(--red)" : "var(--border-subtle)";
+                    e.target.style.borderColor = errors.phone
+                      ? "var(--red)"
+                      : "var(--border-subtle)";
                   }}
                   placeholder="+1 234 567 8900"
                 />
@@ -307,10 +349,13 @@ export function Contact() {
                   style={{
                     backgroundColor: "var(--bg-d)",
                     color: "var(--base)",
-                    }}
+                  }}
                 >
                   <div className="flex items-center gap-2">
-                    <MessageSquare className="w-4 h-4" style={{ color: "var(--orange)" }} />
+                    <MessageSquare
+                      className="w-4 h-4"
+                      style={{ color: "var(--orange)" }}
+                    />
                     Short Message
                   </div>
                 </label>
@@ -321,14 +366,18 @@ export function Contact() {
                   className="w-full px-5 py-4 rounded-2xl border-2 transition-all focus:outline-none focus:ring-2 resize-none"
                   style={{
                     backgroundColor: "var(--bg)",
-                    borderColor: errors.message ? "var(--red)" : "var(--border-subtle)",
+                    borderColor: errors.message
+                      ? "var(--red)"
+                      : "var(--border-subtle)",
                     color: "var(--base)",
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = "var(--orange)";
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = errors.message ? "var(--red)" : "var(--border-subtle)";
+                    e.target.style.borderColor = errors.message
+                      ? "var(--red)"
+                      : "var(--border-subtle)";
                   }}
                   placeholder="Tell me about your project..."
                 />
@@ -358,7 +407,9 @@ export function Contact() {
                     }}
                   >
                     <CheckCircle className="w-6 h-6" />
-                    <span className="font-semibold text-lg">Message sent successfully!</span>
+                    <span className="font-semibold text-lg">
+                      Message sent successfully!
+                    </span>
                   </motion.div>
                 )}
 
@@ -375,7 +426,9 @@ export function Contact() {
                     }}
                   >
                     <AlertCircle className="w-6 h-6" />
-                    <span className="font-semibold text-lg">Failed to send message. Please try again.</span>
+                    <span className="font-semibold text-lg">
+                      Failed to send message. Please try again.
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -397,7 +450,11 @@ export function Contact() {
                   <>
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                       className="w-6 h-6 border-3 border-bg border-t-transparent rounded-full"
                     />
                     Sending...

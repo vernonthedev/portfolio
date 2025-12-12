@@ -26,7 +26,9 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
     if (selectedCategory === "All") {
       setFilteredPosts(posts);
     } else {
-      setFilteredPosts(posts.filter((post) => post.category === selectedCategory));
+      setFilteredPosts(
+        posts.filter((post) => post.category === selectedCategory)
+      );
     }
   }, [selectedCategory, posts]);
 
@@ -43,7 +45,8 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="font-youth text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight"
+        <div
+          className="font-youth text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -70,19 +73,29 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
             }}
           >
             <motion.div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
-              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-sm font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </motion.div>
             <PenTool className="w-5 h-5" style={{ color: "var(--orange)" }} />
-            <span className="text-base font-semibold" style={{ color: "var(--grey)" }}>
+            <span
+              className="text-base font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Latest Articles
             </span>
-            <span className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
+            <span
+              className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
               style={{
                 backgroundColor: "var(--purple)20",
                 color: "var(--purple)",
@@ -145,7 +158,8 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
               style={
                 selectedCategory === category
                   ? {
-                      background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                      background:
+                        "linear-gradient(135deg, var(--orange), var(--purple))",
                       color: "var(--bg)",
                     }
                   : {
@@ -181,7 +195,8 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
                 <div
                   className="absolute inset-0 rounded-[2em] opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500 pointer-events-none"
                   style={{
-                    background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                    background:
+                      "linear-gradient(135deg, var(--orange), var(--purple))",
                   }}
                 />
 
@@ -201,18 +216,23 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
                     <div
                       className="absolute inset-0 bg-gradient-to-br opacity-40 group-hover:opacity-20 transition-opacity"
                       style={{
-                        background: "linear-gradient(135deg, var(--purple), var(--orange))",
+                        background:
+                          "linear-gradient(135deg, var(--purple), var(--orange))",
                       }}
                     />
                     {post.featured && (
-                      <div className="absolute top-5 right-5 px-4 py-2 rounded-full backdrop-blur-md shadow-xl flex items-center gap-2"
+                      <div
+                        className="absolute top-5 right-5 px-4 py-2 rounded-full backdrop-blur-md shadow-xl flex items-center gap-2"
                         style={{
-                          background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                          background:
+                            "linear-gradient(135deg, var(--orange), var(--purple))",
                           color: "var(--bg)",
                         }}
                       >
                         <BookOpen className="w-4 h-4" />
-                        <span className="text-sm font-bold uppercase tracking-wide">Featured</span>
+                        <span className="text-sm font-bold uppercase tracking-wide">
+                          Featured
+                        </span>
                       </div>
                     )}
                   </div>
@@ -239,7 +259,8 @@ export function Blog({ posts: initialPosts }: { posts: BlogPost[] }) {
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-6 border-t"
+                    <div
+                      className="flex items-center justify-between pt-6 border-t"
                       style={{ borderColor: "var(--border-subtle)" }}
                     >
                       <span

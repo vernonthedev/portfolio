@@ -26,7 +26,13 @@ const menuItems = [
   { icon: Settings, label: "Settings", path: "/admin/settings" },
 ];
 
-export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCollapsed: (v: boolean) => void }) {
+export function Sidebar({
+  collapsed,
+  setCollapsed,
+}: {
+  collapsed: boolean;
+  setCollapsed: (v: boolean) => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -41,24 +47,32 @@ export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCo
       }}
     >
       <div className="h-full flex flex-col">
-        <div className="p-4 flex items-center justify-between border-b" style={{ borderColor: "var(--border-subtle)" }}>
+        <div
+          className="p-4 flex items-center justify-between border-b"
+          style={{ borderColor: "var(--border-subtle)" }}
+        >
           {!collapsed && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="flex items-center gap-3"
             >
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, var(--orange), var(--purple))",
-                }}
-              >
-                <span className="text-lg font-youth font-bold" style={{ color: "var(--bg)" }}>
-                  VD
-                </span>
+              <div className="w-10 h-10 rounded-xl overflow-hidden relative">
+                <img
+                  src="/logos/white.png"
+                  alt="Logo"
+                  className="w-full h-full object-cover hidden dark:block"
+                />
+                <img
+                  src="/logos/black.png"
+                  alt="Logo"
+                  className="w-full h-full object-cover block dark:hidden"
+                />
               </div>
-              <span className="font-youth text-xl font-bold" style={{ color: "var(--base)" }}>
+              <span
+                className="font-youth text-xl font-bold"
+                style={{ color: "var(--base)" }}
+              >
                 Admin
               </span>
             </motion.div>
@@ -68,14 +82,20 @@ export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCo
             className="p-2 rounded-lg hover:bg-opacity-10"
             style={{ color: "var(--base)" }}
           >
-            {collapsed ? <Menu className="w-5 h-5" /> : <X className="w-5 h-5" />}
+            {collapsed ? (
+              <Menu className="w-5 h-5" />
+            ) : (
+              <X className="w-5 h-5" />
+            )}
           </button>
         </div>
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.path || (item.path !== "/admin" && pathname.startsWith(item.path));
+            const isActive =
+              pathname === item.path ||
+              (item.path !== "/admin" && pathname.startsWith(item.path));
 
             return (
               <motion.button
@@ -87,7 +107,8 @@ export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCo
                 style={
                   isActive
                     ? {
-                        background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                        background:
+                          "linear-gradient(135deg, var(--orange), var(--purple))",
                         color: "var(--bg)",
                       }
                     : {
@@ -98,7 +119,9 @@ export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCo
                 whileTap={{ scale: 0.98 }}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
-                {!collapsed && <span className="font-semibold">{item.label}</span>}
+                {!collapsed && (
+                  <span className="font-semibold">{item.label}</span>
+                )}
               </motion.button>
             );
           })}
@@ -107,4 +130,3 @@ export function Sidebar({ collapsed, setCollapsed }: { collapsed: boolean; setCo
     </motion.aside>
   );
 }
-

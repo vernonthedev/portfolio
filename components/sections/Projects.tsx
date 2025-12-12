@@ -22,7 +22,11 @@ const categories: Array<Project["category"] | "all"> = [
   "desktop",
 ];
 
-export function Projects({ projects: initialProjects }: { projects: Project[] }) {
+export function Projects({
+  projects: initialProjects,
+}: {
+  projects: Project[];
+}) {
   const [projects, setProjects] = useState(initialProjects);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
@@ -91,19 +95,19 @@ export function Projects({ projects: initialProjects }: { projects: Project[] })
             }}
           >
             <motion.div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--orange), var(--purple))",
-              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span
-                className="text-sm font-youth font-bold"
-                style={{ color: "var(--bg)" }}
-              >
-                VD
-              </span>
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </motion.div>
             <Sparkles className="w-5 h-5" style={{ color: "var(--orange)" }} />
             <span
@@ -200,196 +204,196 @@ export function Projects({ projects: initialProjects }: { projects: Project[] })
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-            <AnimatePresence mode="wait">
-              {displayProjects.slice(0, 6).map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -50, scale: 0.9 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100,
+          <AnimatePresence mode="wait">
+            {displayProjects.slice(0, 6).map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -50, scale: 0.9 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100,
+                }}
+                className="group relative"
+              >
+                <div
+                  className="absolute inset-0 rounded-[2em] opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--orange), var(--purple))",
                   }}
-                  className="group relative"
-                >
-                  <div
-                    className="absolute inset-0 rounded-[2em] opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, var(--orange), var(--purple))",
-                    }}
-                  />
+                />
 
-                  <motion.div
-                    className="relative rounded-[2em] overflow-hidden h-full cursor-pointer"
-                    style={{ backgroundColor: "var(--bg-d)" }}
-                    whileHover={{ y: -12 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    onClick={() => {
-                      window.location.href = `/projects/${project.slug}`;
-                    }}
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image
-                        src={project.thumbnail || "/placeholder.svg"}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-br transition-opacity"
+                <motion.div
+                  className="relative rounded-[2em] overflow-hidden h-full cursor-pointer"
+                  style={{ backgroundColor: "var(--bg-d)" }}
+                  whileHover={{ y: -12 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  onClick={() => {
+                    window.location.href = `/projects/${project.slug}`;
+                  }}
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={project.thumbnail || "/placeholder.svg"}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-br transition-opacity"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, var(--purple), var(--orange))",
+                        opacity: 0.4,
+                      }}
+                    />
+                    {project.featured && (
+                      <motion.div
+                        className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-md shadow-xl flex items-center gap-2"
                         style={{
                           background:
-                            "linear-gradient(135deg, var(--purple), var(--orange))",
-                          opacity: 0.4,
+                            "linear-gradient(135deg, var(--orange), var(--purple))",
+                          color: "var(--bg)",
                         }}
-                      />
-                      {project.featured && (
-                        <motion.div
-                          className="absolute top-6 right-6 px-4 py-2 rounded-full backdrop-blur-md shadow-xl flex items-center gap-2"
-                          style={{
-                            background:
-                              "linear-gradient(135deg, var(--orange), var(--purple))",
-                            color: "var(--bg)",
-                          }}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <span className="text-sm font-bold uppercase tracking-wide">
-                            Featured
-                          </span>
-                        </motion.div>
-                      )}
-                      <motion.div
-                        className="absolute bottom-6 left-6 right-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: 1.1 }}
                       >
-                        <div className="flex items-center gap-3">
-                          {project.htmlUrl && (
-                            <motion.button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(
-                                  project.htmlUrl as string,
-                                  "_blank",
-                                  "noopener,noreferrer"
-                                );
-                              }}
-                              className="p-3 rounded-full backdrop-blur-md z-10"
-                              style={{
-                                backgroundColor: "var(--bg-d)",
-                                color: "var(--base)",
-                              }}
-                              whileHover={{ scale: 1.1, rotate: 90 }}
-                              whileTap={{ scale: 0.9 }}
-                            >
-                              <Github className="w-5 h-5" />
-                            </motion.button>
-                          )}
-                          {project.homepage && (
-                            <motion.button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(
-                                  project.homepage as string,
-                                  "_blank",
-                                  "noopener,noreferrer"
-                                );
-                              }}
-                              className="p-3 rounded-full backdrop-blur-md z-10"
-                              style={{
-                                background:
-                                  "linear-gradient(135deg, var(--orange), var(--purple))",
-                                color: "var(--bg)",
-                              }}
-                              whileHover={{ scale: 1.1, rotate: -90 }}
-                              whileTap={{ scale: 0.9 }}
-                            >
-                              <ArrowUpRight className="w-5 h-5" />
-                            </motion.button>
-                          )}
-                        </div>
+                        <span className="text-sm font-bold uppercase tracking-wide">
+                          Featured
+                        </span>
                       </motion.div>
-                    </div>
-
-                    <div className="p-8">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <h3
-                            className="text-3xl font-youth font-bold mb-3 group-hover:text-orange transition-colors"
-                            style={{ color: "var(--base)" }}
+                    )}
+                    <motion.div
+                      className="absolute bottom-6 left-6 right-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                    >
+                      <div className="flex items-center gap-3">
+                        {project.htmlUrl && (
+                          <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(
+                                project.htmlUrl as string,
+                                "_blank",
+                                "noopener,noreferrer"
+                              );
+                            }}
+                            className="p-3 rounded-full backdrop-blur-md z-10"
+                            style={{
+                              backgroundColor: "var(--bg-d)",
+                              color: "var(--base)",
+                            }}
+                            whileHover={{ scale: 1.1, rotate: 90 }}
+                            whileTap={{ scale: 0.9 }}
                           >
-                            {project.name}
-                          </h3>
-                          <p
-                            className="text-lg line-clamp-2 leading-relaxed mb-4"
-                            style={{ color: "var(--grey)" }}
+                            <Github className="w-5 h-5" />
+                          </motion.button>
+                        )}
+                        {project.homepage && (
+                          <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(
+                                project.homepage as string,
+                                "_blank",
+                                "noopener,noreferrer"
+                              );
+                            }}
+                            className="p-3 rounded-full backdrop-blur-md z-10"
+                            style={{
+                              background:
+                                "linear-gradient(135deg, var(--orange), var(--purple))",
+                              color: "var(--bg)",
+                            }}
+                            whileHover={{ scale: 1.1, rotate: -90 }}
+                            whileTap={{ scale: 0.9 }}
                           >
-                            {project.description}
-                          </p>
-                        </div>
-                      </div>
-
-                      {project.topics && project.topics.length > 0 && (
-                        <div className="flex flex-wrap gap-3 mb-6">
-                          {project.topics.slice(0, 4).map((topic) => (
-                            <motion.span
-                              key={topic}
-                              className="px-4 py-2 rounded-full text-sm font-medium border backdrop-blur-sm"
-                              style={{
-                                borderColor: "var(--border-subtle)",
-                                backgroundColor: "var(--bg)",
-                                color: "var(--base)",
-                              }}
-                              whileHover={{ scale: 1.1, y: -2 }}
-                            >
-                              {topic}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div
-                        className="flex items-center justify-between text-base pt-6 border-t"
-                        style={{
-                          color: "var(--grey)",
-                          borderColor: "var(--border-subtle)",
-                        }}
-                      >
-                        <div className="flex items-center gap-6">
-                          <span className="flex items-center gap-2 font-semibold">
-                            <Star
-                              className="w-5 h-5"
-                              style={{ color: "var(--orange)" }}
-                            />
-                            {project.stargazersCount}
-                          </span>
-                          <span className="flex items-center gap-2 font-semibold">
-                            <GitFork
-                              className="w-5 h-5"
-                              style={{ color: "var(--purple)" }}
-                            />
-                            {project.forksCount}
-                          </span>
-                        </div>
-                        {project.language && (
-                          <span
-                            className="font-bold px-4 py-2 rounded-lg"
-                            style={{ backgroundColor: "var(--bg-darker)" }}
-                          >
-                            {project.language}
-                          </span>
+                            <ArrowUpRight className="w-5 h-5" />
+                          </motion.button>
                         )}
                       </div>
+                    </motion.div>
+                  </div>
+
+                  <div className="p-8">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <h3
+                          className="text-3xl font-youth font-bold mb-3 group-hover:text-orange transition-colors"
+                          style={{ color: "var(--base)" }}
+                        >
+                          {project.name}
+                        </h3>
+                        <p
+                          className="text-lg line-clamp-2 leading-relaxed mb-4"
+                          style={{ color: "var(--grey)" }}
+                        >
+                          {project.description}
+                        </p>
+                      </div>
                     </div>
-                  </motion.div>
+
+                    {project.topics && project.topics.length > 0 && (
+                      <div className="flex flex-wrap gap-3 mb-6">
+                        {project.topics.slice(0, 4).map((topic) => (
+                          <motion.span
+                            key={topic}
+                            className="px-4 py-2 rounded-full text-sm font-medium border backdrop-blur-sm"
+                            style={{
+                              borderColor: "var(--border-subtle)",
+                              backgroundColor: "var(--bg)",
+                              color: "var(--base)",
+                            }}
+                            whileHover={{ scale: 1.1, y: -2 }}
+                          >
+                            {topic}
+                          </motion.span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div
+                      className="flex items-center justify-between text-base pt-6 border-t"
+                      style={{
+                        color: "var(--grey)",
+                        borderColor: "var(--border-subtle)",
+                      }}
+                    >
+                      <div className="flex items-center gap-6">
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Star
+                            className="w-5 h-5"
+                            style={{ color: "var(--orange)" }}
+                          />
+                          {project.stargazersCount}
+                        </span>
+                        <span className="flex items-center gap-2 font-semibold">
+                          <GitFork
+                            className="w-5 h-5"
+                            style={{ color: "var(--purple)" }}
+                          />
+                          {project.forksCount}
+                        </span>
+                      </div>
+                      {project.language && (
+                        <span
+                          className="font-bold px-4 py-2 rounded-lg"
+                          style={{ backgroundColor: "var(--bg-darker)" }}
+                        >
+                          {project.language}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
 
         {displayProjects.length === 0 && (
           <motion.div

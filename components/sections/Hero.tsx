@@ -153,19 +153,19 @@ export function Hero({ heroData }: { heroData: HeroData }) {
               }}
             >
               <motion.div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--orange), var(--purple))",
-                }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden relative"
                 whileHover={{ scale: 1.1, rotate: 5 }}
               >
-                <span
-                  className="text-xl font-youth font-bold"
-                  style={{ color: "var(--bg)" }}
-                >
-                  VD
-                </span>
+                <img
+                  src="/logos/white.png"
+                  alt="Logo"
+                  className="w-full h-full object-cover hidden dark:block"
+                />
+                <img
+                  src="/logos/black.png"
+                  alt="Logo"
+                  className="w-full h-full object-cover block dark:hidden"
+                />
               </motion.div>
               <span
                 className="text-lg md:text-xl font-youth font-bold tracking-tight"

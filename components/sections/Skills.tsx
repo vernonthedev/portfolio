@@ -12,8 +12,6 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-
-
 const categoryIcons = {
   frontend: Code,
   backend: Database,
@@ -30,21 +28,23 @@ const categoryColors = {
   tools: "#3b82f6",
 };
 
-const CircularProgress = ({ 
-  skill, 
-  size = 140, 
+const CircularProgress = ({
+  skill,
+  size = 140,
   strokeWidth = 12,
-  index 
-}: { 
-  skill: Skill; 
-  size?: number; 
+  index,
+}: {
+  skill: Skill;
+  size?: number;
   strokeWidth?: number;
   index: number;
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (skill.level / 100) * circumference;
-  const color = categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)";
+  const color =
+    categoryColors[skill.category as keyof typeof categoryColors] ||
+    "var(--orange)";
 
   return (
     <motion.div
@@ -113,25 +113,29 @@ const CircularProgress = ({
 };
 
 export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
-  const [selectedCategory, setSelectedCategory] = useState<string | "all">("all");
+  const [selectedCategory, setSelectedCategory] = useState<string | "all">(
+    "all"
+  );
 
   const categories = Array.from(new Set(initialSkills.map((s) => s.category)));
 
   // Validate and correct selected category if it no longer exists
-  const validSelectedCategory = 
+  const validSelectedCategory =
     selectedCategory === "all" || categories.includes(selectedCategory)
       ? selectedCategory
       : "all";
 
-  const filteredSkills = validSelectedCategory === "all"
-    ? initialSkills
-    : initialSkills.filter((s) => s.category === validSelectedCategory);
+  const filteredSkills =
+    validSelectedCategory === "all"
+      ? initialSkills
+      : initialSkills.filter((s) => s.category === validSelectedCategory);
 
   const categoryGroups = categories.map((cat) => ({
     category: cat,
     skills: initialSkills.filter((s) => s.category === cat),
     icon: categoryIcons[cat as keyof typeof categoryIcons] || Wrench, // Fallback icon
-    color: categoryColors[cat as keyof typeof categoryColors] || "var(--orange)", // Fallback color
+    color:
+      categoryColors[cat as keyof typeof categoryColors] || "var(--orange)", // Fallback color
   }));
 
   return (
@@ -147,7 +151,8 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="font-youth text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight -rotate-12"
+        <div
+          className="font-youth text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tight -rotate-12"
           style={{ color: "var(--base)" }}
         >
           vernonthedev
@@ -174,19 +179,32 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
             }}
           >
             <motion.div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, var(--orange), var(--purple))",
-              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="text-sm font-youth font-bold" style={{ color: "var(--bg)" }}>VD</span>
+              <img
+                src="/logos/white.png"
+                alt="Logo"
+                className="w-full h-full object-cover hidden dark:block"
+              />
+              <img
+                src="/logos/black.png"
+                alt="Logo"
+                className="w-full h-full object-cover block dark:hidden"
+              />
             </motion.div>
-            <TrendingUp className="w-5 h-5" style={{ color: "var(--orange)" }} />
-            <span className="text-base font-semibold" style={{ color: "var(--grey)" }}>
+            <TrendingUp
+              className="w-5 h-5"
+              style={{ color: "var(--orange)" }}
+            />
+            <span
+              className="text-base font-semibold"
+              style={{ color: "var(--grey)" }}
+            >
               Technical Expertise
             </span>
-            <span className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
+            <span
+              className="text-xs font-youth font-bold uppercase tracking-wide px-2 py-1 rounded"
               style={{
                 backgroundColor: "var(--purple)20",
                 color: "var(--purple)",
@@ -240,12 +258,15 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
           <motion.button
             onClick={() => setSelectedCategory("all")}
             className={`px-6 py-3 rounded-full font-semibold text-base transition-all ${
-              validSelectedCategory === "all" ? "shadow-lg" : "border backdrop-blur-sm"
+              validSelectedCategory === "all"
+                ? "shadow-lg"
+                : "border backdrop-blur-sm"
             }`}
             style={
               validSelectedCategory === "all"
                 ? {
-                    background: "linear-gradient(135deg, var(--orange), var(--purple))",
+                    background:
+                      "linear-gradient(135deg, var(--orange), var(--purple))",
                     color: "var(--bg)",
                   }
                 : {
@@ -260,18 +281,25 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
             All Skills
           </motion.button>
           {categories.map((category) => {
-            const Icon = categoryIcons[category as keyof typeof categoryIcons] || Wrench;
+            const Icon =
+              categoryIcons[category as keyof typeof categoryIcons] || Wrench;
             return (
               <motion.button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-3 rounded-full font-semibold text-base transition-all flex items-center gap-2 ${
-                  validSelectedCategory === category ? "shadow-lg" : "border backdrop-blur-sm"
+                  validSelectedCategory === category
+                    ? "shadow-lg"
+                    : "border backdrop-blur-sm"
                 }`}
                 style={
                   validSelectedCategory === category
                     ? {
-                        background: `linear-gradient(135deg, ${categoryColors[category as keyof typeof categoryColors]}, var(--purple))`,
+                        background: `linear-gradient(135deg, ${
+                          categoryColors[
+                            category as keyof typeof categoryColors
+                          ]
+                        }, var(--purple))`,
                         color: "var(--bg)",
                       }
                     : {
@@ -390,8 +418,14 @@ export function Skills({ skills: initialSkills }: { skills: Skill[] }) {
                 whileTap={{ scale: 0.95 }}
                 className="px-6 py-3 rounded-full border backdrop-blur-sm"
                 style={{
-                  borderColor: (categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)") + "40",
-                  backgroundColor: (categoryColors[skill.category as keyof typeof categoryColors] || "var(--orange)") + "10",
+                  borderColor:
+                    (categoryColors[
+                      skill.category as keyof typeof categoryColors
+                    ] || "var(--orange)") + "40",
+                  backgroundColor:
+                    (categoryColors[
+                      skill.category as keyof typeof categoryColors
+                    ] || "var(--orange)") + "10",
                 }}
               >
                 <span
