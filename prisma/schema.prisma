@@ -146,3 +146,14 @@ model AuditLog {
   @@index([createdAt])
   @@map("audit_logs")
 }
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contacts")
+}

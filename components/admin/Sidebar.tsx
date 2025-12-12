@@ -13,7 +13,9 @@ import {
   Settings,
   Menu,
   X,
+  Mail,
 } from "lucide-react";
+import Image from "next/image";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
@@ -22,6 +24,7 @@ const menuItems = [
   { icon: FileText, label: "Blog Posts", path: "/admin/blog" },
   { icon: User, label: "About", path: "/admin/about" },
   { icon: Sparkles, label: "Hero", path: "/admin/hero" },
+  { icon: Mail, label: "Contacts", path: "/admin/contacts" },
   { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
   { icon: Settings, label: "Settings", path: "/admin/settings" },
 ];
@@ -58,15 +61,17 @@ export function Sidebar({
               className="flex items-center gap-3"
             >
               <div className="w-10 h-10 rounded-xl overflow-hidden relative">
-                <img
+                <Image
                   src="/logos/white.png"
                   alt="Logo"
-                  className="w-full h-full object-cover hidden dark:block"
+                  fill
+                  className="object-cover hidden dark:block"
                 />
-                <img
+                <Image
                   src="/logos/black.png"
                   alt="Logo"
-                  className="w-full h-full object-cover block dark:hidden"
+                  fill
+                  className="object-cover block dark:hidden"
                 />
               </div>
               <span
