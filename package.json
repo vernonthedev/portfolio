@@ -63,7 +63,7 @@
     "eslint-config-next": "^16.0.7",
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
-    "next": "^16.0.7",
+    "next": "16.0.10",
     "postcss": "^8.4.0",
     "prisma": "^6.19.0",
     "semantic-release": "^25.0.2",
