@@ -9,7 +9,6 @@ export async function middleware(request: NextRequest) {
   const sessionToken = request.cookies.get("session_token")?.value;
 
   if (!sessionToken) {
-    // If no token, redirect to the new login page.
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -23,11 +22,9 @@ export async function middleware(request: NextRequest) {
     });
 
     if (!verifyResponse.ok) {
-      // If token is invalid, redirect to login.
       return NextResponse.redirect(new URL("/login", request.url));
     }
   } catch {
-    // If the verification endpoint fails, it's safer to redirect to login.
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

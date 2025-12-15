@@ -71,7 +71,7 @@ export async function getProjects() {
     orderBy: { createdAt: "desc" },
   });
 
-  return projects.map((project: Prisma.ProjectGetPayload<{}>) => ({
+  return projects.map((project: Prisma.ProjectGetPayload<object>) => ({
     ...project,
     category: project.category as Project['category'],
   }));

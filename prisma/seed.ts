@@ -17,7 +17,7 @@ async function main() {
     },
   });
 
-  console.log("✅ Admin user created:", admin.username);
+  console.log("Admin user created:", admin.username);
 
   const defaultSkills = [
     { name: "Laravel", level: 95, category: "backend", icon: "laravel", order: 1 },
@@ -36,7 +36,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Default skills created");
+  console.log("Default skills created");
 }
 
 main()

@@ -2,70 +2,50 @@
 
 A modern, high-performance portfolio website built with Next.js, showcasing projects, skills, and professional work.
 
-## 🚀 Features
+## Features
 
 - Modern, responsive design with dark/light mode
 - Smooth animations powered by Framer Motion
-- GitHub integration for live project showcase
 - SEO optimized with structured data
 - Contact form with validation
 - Blog section ready for content
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Next.js 14** (App Router)
+- **Next.js 16** (App Router)
 - **TypeScript**
-- **Tailwind CSS**
+- **Custom & TailwindCSS**
 - **Framer Motion**
 - **React Hook Form** + **Zod**
 
-## 📦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js 22+
+- npm
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <repository-url>
+git clone https://github.com/vernonthedev/portfolio.git
 cd portfolio
-
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
 ```
 
 Visit `http://localhost:3000` to see the site.
 
-## ⚙️ Configuration
-
-Update your GitHub username in `lib/github.ts`:
-
-```typescript
-const GITHUB_USERNAME = "vernonthedev";
-```
-
-Configure website details in `app/api/website-details/route.ts` and customize content in respective section components.
-
-## 🏗️ Build
+## Build
 
 ```bash
 npm run build
 npm start
 ```
 
-## 📝 License
+## Author
 
-This project is private and proprietary.
-
-## 👤 Author
-
-### vernonthedev
+> vernonthedev
 
 - GitHub: [@vernonthedev](https://github.com/vernonthedev)
 - YouTube: [@vernonthedev](https://youtube.com/@vernonthedev)

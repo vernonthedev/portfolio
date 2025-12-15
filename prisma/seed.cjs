@@ -1,7 +1,6 @@
-require('dotenv/config');
-
-const PrismaClient = require('../.prisma/client/client.js').PrismaClient;
-const bcrypt = require("bcryptjs");
+import "dotenv/config";
+import { PrismaClient } from "@prisma/client";
+import { bcrypt } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -21,15 +20,45 @@ async function main() {
     },
   });
 
-  console.log("✅ Admin user created:", admin.username);
+  console.log("Admin user created:", admin.username);
 
   const defaultSkills = [
-    { name: "Laravel", level: 95, category: "backend", icon: "laravel", order: 1 },
-    { name: "Flutter", level: 90, category: "mobile", icon: "flutter", order: 2 },
-    { name: "JavaScript", level: 88, category: "frontend", icon: "js", order: 3 },
-    { name: "TypeScript", level: 85, category: "frontend", icon: "ts", order: 4 },
+    {
+      name: "Laravel",
+      level: 95,
+      category: "backend",
+      icon: "laravel",
+      order: 1,
+    },
+    {
+      name: "Flutter",
+      level: 90,
+      category: "mobile",
+      icon: "flutter",
+      order: 2,
+    },
+    {
+      name: "JavaScript",
+      level: 88,
+      category: "frontend",
+      icon: "js",
+      order: 3,
+    },
+    {
+      name: "TypeScript",
+      level: 85,
+      category: "frontend",
+      icon: "ts",
+      order: 4,
+    },
     { name: "PHP", level: 92, category: "backend", icon: "php", order: 5 },
-    { name: "Next.js", level: 87, category: "frontend", icon: "next", order: 6 },
+    {
+      name: "Next.js",
+      level: 87,
+      category: "frontend",
+      icon: "next",
+      order: 6,
+    },
   ];
 
   for (const skill of defaultSkills) {
@@ -40,7 +69,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Default skills created");
+  console.log("Default skills created");
 }
 
 main()

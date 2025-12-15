@@ -9,7 +9,7 @@ const websiteDetails: WebsiteDetails = {
   youtube: "https://youtube.com/@vernonthedev",
   twitter: "https://twitter.com/vernonthedev",
   linkedin: "https://linkedin.com/in/vernonthedev",
-  email: "contact@vernonthedev.com",
+  email: "techjaja2@gmail.com",
 };
 
 export async function GET() {

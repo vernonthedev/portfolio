@@ -1,4 +1,3 @@
-// lib/github.ts
 import { Project } from "@/types";
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME || "vernonthedev";
@@ -10,6 +9,7 @@ export async function fetchGitHubRepos(): Promise<Project[]> {
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.statusText}`);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any[] = await response.json();
 
     const projects: Project[] = data.map((repo) => ({

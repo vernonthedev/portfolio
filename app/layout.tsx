@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vernonthedev.com",
+    url: "https://vernonthedev.vercel.app",
     title: "vernonthedev | Full-Stack Developer",
     description:
       "Portfolio of Vernon - Laravel, Flutter, and Full-Stack Developer",
@@ -56,7 +56,7 @@ const structuredData = {
   "@type": "Person",
   name: "vernonthedev",
   jobTitle: "Full-Stack Developer",
-  url: "https://vernonthedev.com",
+  url: "https://vernonthedev.vercel.app",
   sameAs: [
     "https://github.com/vernonthedev",
     "https://youtube.com/@vernonthedev",

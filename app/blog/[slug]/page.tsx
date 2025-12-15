@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Calendar, BookOpen, PenTool, Share2, Clock, Sparkles } from "lucide-react";
+import { ArrowLeft, Calendar, PenTool, Share2, Clock } from "lucide-react";
 import Image from "next/image";
 import { BlogPost } from "@/types";
 import { formatDate } from "@/lib/utils";

@@ -14,6 +14,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Image from "next/image";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -109,16 +110,16 @@ export function Contact() {
               className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <img
-                src="/logos/white.png"
-                alt="Logo"
-                className="w-full h-full object-cover hidden dark:block"
-              />
-              <img
-                src="/logos/black.png"
-                alt="Logo"
-                className="w-full h-full object-cover block dark:hidden"
-              />
+            <Image
+              src="/logos/white.png"
+              alt="vernonthedev's Logo"
+              className="w-full h-full object-cover hidden dark:block"
+            />
+            <Image
+              src="/logos/black.png"
+              alt="vernonthedev's Logo"
+              className="w-full h-full object-cover block dark:hidden"
+            />
             </motion.div>
             <Mail className="w-5 h-5" style={{ color: "var(--orange)" }} />
             <span

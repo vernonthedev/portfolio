@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Github, ExternalLink, Star, GitFork, Calendar, Code, Globe, Sparkles } from "lucide-react";
+import { ArrowLeft, Github, Star, GitFork, Calendar, Code, Globe } from "lucide-react";
 import Image from "next/image";
 import { Project } from "@/types";
 import { fetchGitHubRepos } from "@/lib/github";
