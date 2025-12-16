@@ -24,7 +24,11 @@ const lucideIcons: { [key: string]: LucideIcon } = {
   Zap: Zap,
 };
 
-export function About({ aboutData }: { aboutData: AboutData }) {
+export function About({ aboutData }: { aboutData: AboutData | null }) {
+  if (!aboutData) {
+    return null; // Or render a loading state/fallback UI
+  }
+
   const { bio, services, stats, image } = aboutData;
 
   return (

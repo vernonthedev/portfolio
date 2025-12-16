@@ -13,7 +13,7 @@ const floatingOrbs = Array.from({ length: 8 }, (_, i) => ({
   duration: Math.random() * 25 + 20,
 }));
 
-export function Hero({ heroData }: { heroData: HeroData }) {
+export function Hero({ heroData }: { heroData: HeroData | null }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll({
@@ -24,6 +24,10 @@ export function Hero({ heroData }: { heroData: HeroData }) {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+
+  if (!heroData) {
+    return null; // Or render a loading state/fallback UI
+  }
 
   const words = heroData.title.split(" ");
   const techStack = heroData.techStack;

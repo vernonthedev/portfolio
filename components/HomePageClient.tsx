@@ -37,8 +37,8 @@ export function HomePageClient({
   projects: Project[];
   posts: BlogPost[];
   skills: Skill[];
-  aboutData: AboutData;
-  heroData: HeroData;
+  aboutData: AboutData | null;
+  heroData: HeroData | null;
 }) {
   return (
     <main className="min-h-screen relative">
