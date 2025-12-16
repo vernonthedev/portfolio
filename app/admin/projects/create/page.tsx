@@ -139,10 +139,10 @@ export default function CreateProjectPage() {
         if (data.success) {
           onSuccess(data.url);
         } else {
-          onError("Image upload failed: " + data.error);
+          onError("Image upload failed: " + (data.error || "Unknown error"));
         }
       } catch (error: any) {
-        onError("Error uploading image: " + error.message);
+        onError("Error uploading image: " + (error.message || "Unknown error"));
       }
     },
   }), []);
@@ -244,24 +244,6 @@ export default function CreateProjectPage() {
               value={formData.content}
               onChange={(value) => setFormData({ ...formData, content: value })}
               options={simplemdeOptions}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold mb-2" style={{ color: "var(--base)" }}>
-              Additional Images (comma-separated URLs)
-            </label>
-            <input
-              type="text"
-              value={formData.images ?? ""}
-              onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-              className="w-full px-4 py-2 rounded-xl border"
-              style={{
-                borderColor: "var(--border-subtle)",
-                backgroundColor: "var(--bg)",
-                color: "var(--base)",
-              }}
-              placeholder="image1.jpg, image2.png"
             />
           </div>
 
