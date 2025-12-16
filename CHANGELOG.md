@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/vernonthedev/portfolio/compare/v1.3.0...v1.3.1) (2025-12-16)
+
+
+### Bug Fixes
+
+* fixed the projects not found bug, fixes [#23](https://github.com/vernonthedev/portfolio/issues/23) ([97466a2](https://github.com/vernonthedev/portfolio/commit/97466a25a1572094e2a009518119f647f8db5329))
+* newly created projects are displayed automatically on the projects page, fixes [#24](https://github.com/vernonthedev/portfolio/issues/24) ([e2000b9](https://github.com/vernonthedev/portfolio/commit/e2000b996aa29d085a1106f182d99e5bd26be185))
+
 # [1.3.0](https://github.com/vernonthedev/portfolio/compare/v1.2.0...v1.3.0) (2025-12-12)
 
 
