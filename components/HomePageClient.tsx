@@ -44,7 +44,7 @@ export function HomePageClient({
     <main className="min-h-screen relative">
       <Hero heroData={heroData} />
       <Skills skills={skills} />
-      <Projects projects={projects} />
+      <Projects initialProjects={projects} />
       <Blog posts={posts} />
       <About aboutData={aboutData} />
       <Contact />

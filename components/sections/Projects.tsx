@@ -23,28 +23,19 @@ const categories: Array<Project["category"] | "all"> = [
   "desktop",
 ];
 
-export function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+export function Projects({ initialProjects }: { initialProjects: Project[] }) {
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(initialProjects);
   const [selectedCategory, setSelectedCategory] = useState<
     Project["category"] | "all"
   >("all");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // No longer loading internally
 
   useEffect(() => {
-    async function loadProjects() {
-      try {
-        const fetchedProjects = await getProjects();
-        setProjects(fetchedProjects);
-        setFilteredProjects(fetchedProjects);
-      } catch (error) {
-        console.error("Error loading projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadProjects();
-  }, []);
+    // When initialProjects changes (e.g., after router.refresh), update internal state
+    setProjects(initialProjects);
+    setFilteredProjects(initialProjects);
+  }, [initialProjects]);
 
   useEffect(() => {
     if (selectedCategory === "all") {

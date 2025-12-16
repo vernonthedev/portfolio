@@ -164,7 +164,7 @@ export default function EditProjectPage() {
       "quote", "unordered-list", "ordered-list", "|",
       "link", "image", "|",
       "preview", "guide"
-    ],
+    ] as any,
     uploadImage: true,
     imageUploadFunction: async (file: File, onSuccess: (url: string) => void, onError: (error: string) => void) => {
       const body = new FormData();
