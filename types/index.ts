@@ -11,6 +11,8 @@ export interface Project {
   forksCount: number;
   featured?: boolean;
   thumbnail?: string | null;
+  content?: string | null;
+  images: string[];
   category?: "web" | "mobile" | "backend" | "fullstack" | "desktop" | null;
   updatedAt: Date;
 }

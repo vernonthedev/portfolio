@@ -63,6 +63,8 @@ model Project {
   forksCount     Int       @default(0) @map("forks_count")
   featured       Boolean   @default(false)
   thumbnail      String?
+  content        String?   @db.Text
+  images         String[]
   category       String?
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")

@@ -20,6 +20,8 @@ const projectSchema = z.object({
   forksCount: z.number().default(0),
   featured: z.boolean().default(false),
   thumbnail: z.string().optional(),
+  content: z.string().optional(),
+  images: z.array(z.string()).default([]),
   category: z.enum(["web", "mobile", "backend", "fullstack", "desktop"]).optional(),
 });
 

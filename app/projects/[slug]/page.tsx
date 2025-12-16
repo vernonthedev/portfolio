@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Project } from "@/types";
 import { getProjectBySlug } from "@/app/actions/projects";
 import { formatDate } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -151,22 +152,15 @@ export default function ProjectDetailPage() {
                   <h2 className="text-3xl font-youth font-bold mb-6" style={{ color: "var(--base)" }}>
                     Project Overview
                   </h2>
-                  <div className="prose prose-lg max-w-none" style={{ color: "var(--grey)" }}>
-                    <p className="text-lg leading-relaxed mb-4">
-                      This project showcases modern development practices and cutting-edge technologies.
-                      Built with attention to detail and a focus on user experience.
+                  {project.content ? (
+                    <div className="prose prose-lg max-w-none" style={{ color: "var(--grey)" }}>
+                      <ReactMarkdown>{project.content}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    <p className="text-lg leading-relaxed" style={{ color: "var(--grey)" }}>
+                      No detailed content available for this project.
                     </p>
-                    <p className="text-lg leading-relaxed mb-4">
-                      The application demonstrates best practices in code organization, performance optimization,
-                      and scalable architecture. Every feature has been carefully crafted to provide
-                      an exceptional user experience.
-                    </p>
-                    <p className="text-lg leading-relaxed">
-                      Through this project, I&apos;ve explored new technologies and implemented innovative
-                      solutions to complex problems, pushing the boundaries of what&apos;s possible
-                      in modern web development.
-                    </p>
-                  </div>
+                  )}
                 </div>
 
                 {project.topics && project.topics.length > 0 && (
@@ -197,6 +191,38 @@ export default function ProjectDetailPage() {
                         >
                           {topic}
                         </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {project.images && project.images.length > 0 && (
+                  <div
+                    className="p-10 rounded-[2.5em] border backdrop-blur-sm"
+                    style={{
+                      borderColor: "var(--border-subtle)",
+                      backgroundColor: "var(--bg-d)",
+                    }}
+                  >
+                    <h2 className="text-3xl font-youth font-bold mb-6" style={{ color: "var(--base)" }}>
+                      Project Screenshots
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {project.images.map((imageUrl, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          className="relative w-full h-60 rounded-xl overflow-hidden"
+                        >
+                          <Image
+                            src={imageUrl}
+                            alt={`Project screenshot ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </motion.div>
                       ))}
                     </div>
                   </div>

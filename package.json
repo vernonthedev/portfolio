@@ -27,6 +27,7 @@
     "clsx": "^2.1.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
+    "easymde": "^2.20.0",
     "framer-motion": "^11.0.0",
     "gray-matter": "^4.0.3",
     "jose": "^6.1.2",
@@ -39,6 +40,7 @@
     "react-hook-form": "^7.50.0",
     "react-loading-skeleton": "^3.5.0",
     "react-markdown": "^9.0.0",
+    "react-simplemde-editor": "^5.2.0",
     "recharts": "^3.5.1",
     "tailwind-merge": "^2.2.0",
     "zod": "^3.25.76"
