@@ -4,7 +4,12 @@ import { ProjectsTable } from "@/components/admin/ProjectsTable";
 export const dynamic = 'force-dynamic';
 
 export default async function AdminProjectsPage() {
-  const projects = await getProjects();
+  let projects = [];
+  try {
+    projects = await getProjects();
+  } catch (error) {
+    console.error("Error fetching admin projects:", error);
+  }
 
   return (
     <div className="space-y-6">
