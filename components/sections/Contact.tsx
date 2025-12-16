@@ -113,11 +113,15 @@ export function Contact() {
             <Image
               src="/logos/white.png"
               alt="vernonthedev's Logo"
+              width={32}
+              height={32}
               className="w-full h-full object-cover hidden dark:block"
             />
             <Image
               src="/logos/black.png"
               alt="vernonthedev's Logo"
+              width={32}
+              height={32}
               className="w-full h-full object-cover block dark:hidden"
             />
             </motion.div>

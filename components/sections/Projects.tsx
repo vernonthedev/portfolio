@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { Project } from "@/types";
+import { getProjects } from "@/app/actions/projects";
 
 const categories: Array<Project["category"] | "all"> = [
   "all",
@@ -22,21 +23,28 @@ const categories: Array<Project["category"] | "all"> = [
   "desktop",
 ];
 
-export function Projects({
-  projects: initialProjects,
-}: {
-  projects: Project[];
-}) {
-  const [projects, setProjects] = useState(initialProjects);
+export function Projects() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     Project["category"] | "all"
   >("all");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProjects(initialProjects);
-    setFilteredProjects(initialProjects);
-  }, [initialProjects]);
+    async function loadProjects() {
+      try {
+        const fetchedProjects = await getProjects();
+        setProjects(fetchedProjects);
+        setFilteredProjects(fetchedProjects);
+      } catch (error) {
+        console.error("Error loading projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProjects();
+  }, []);
 
   useEffect(() => {
     if (selectedCategory === "all") {
@@ -53,6 +61,22 @@ export function Projects({
     selectedCategory === "all" && featuredProjects.length > 0
       ? featuredProjects
       : filteredProjects;
+
+  if (loading) {
+    return (
+      <section
+        id="projects"
+        className="min-h-screen flex items-center justify-center py-32 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: "var(--bg)" }}
+      >
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-t-orange border-r-purple border-b-orange border-l-purple rounded-full"
+        />
+      </section>
+    );
+  }
 
   return (
     <section
@@ -98,14 +122,18 @@ export function Projects({
               className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <img
+              <Image
                 src="/logos/white.png"
                 alt="Logo"
+                width={32}
+                height={32}
                 className="w-full h-full object-cover hidden dark:block"
               />
-              <img
+              <Image
                 src="/logos/black.png"
                 alt="Logo"
+                width={32}
+                height={32}
                 className="w-full h-full object-cover block dark:hidden"
               />
             </motion.div>
@@ -140,7 +168,7 @@ export function Projects({
             <br />
             <motion.span
               initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               style={{ color: "var(--orange)" }}

@@ -49,3 +49,9 @@ WARP.md
 # Assets
 public/uploads/
 errors.txt
+.env.development
+.env.production
+.env.test
+.env.local
+Dockerfile.dev
+error.txt

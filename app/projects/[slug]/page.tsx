@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Github, Star, GitFork, Calendar, Code, Globe } from "lucide-react";
 import Image from "next/image";
 import { Project } from "@/types";
-import { fetchGitHubRepos } from "@/lib/github";
+import { getProjectBySlug } from "@/app/actions/projects";
 import { formatDate } from "@/lib/utils";
 
 export default function ProjectDetailPage() {
@@ -18,9 +18,8 @@ export default function ProjectDetailPage() {
   useEffect(() => {
     async function loadProject() {
       try {
-        const repos = await fetchGitHubRepos();
-        const found = repos.find((p) => p.name.toLowerCase().replace(/\s+/g, "-") === params.slug);
-        setProject(found || null);
+        const foundProject = await getProjectBySlug(params.slug as string);
+        setProject(foundProject || null);
       } catch (error) {
         console.error("Error loading project:", error);
       } finally {
@@ -73,7 +72,7 @@ export default function ProjectDetailPage() {
         >
           <div className="relative w-full h-full">
             <Image
-              src={`https://picsum.photos/seed/${project.name}/1920/1080`}
+              src={project.thumbnail || "/placeholder.svg"}
               alt={project.name}
               fill
               className="object-cover"
@@ -302,4 +301,3 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
-

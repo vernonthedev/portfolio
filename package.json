@@ -14,7 +14,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:seed": "curl -X POST  https://vernonthedev.vercel.app/api/seed || echo 'Start prod server first: npm run start'",
+    "db:seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {

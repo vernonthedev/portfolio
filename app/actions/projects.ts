@@ -77,3 +77,17 @@ export async function getProjects() {
   }));
 }
 
+export async function getProjectBySlug(slug: string) {
+  const project = await prisma.project.findUnique({
+    where: { slug },
+  });
+
+  if (!project) {
+    return null;
+  }
+
+  return {
+    ...project,
+    category: project.category as Project['category'],
+  };
+}
