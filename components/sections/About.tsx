@@ -151,7 +151,7 @@ export function About({ aboutData }: { aboutData: AboutData | null }) {
               <div className="relative rounded-[2.5em] overflow-hidden group">
                 <div className="aspect-[3/4] relative bg-base/5">
                   <Image
-                    src={image || "/images/me/ait.png"}
+                    src={image || "/images/me/suite.jpg"}
                     alt="vernonthedev"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
